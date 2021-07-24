@@ -48,3 +48,16 @@ export const deletePost = async (req, res) => {
 		res.status(400).json({ msg: error.message });
 	}
 };
+
+export const likePost = async (req, res) => {
+	const id = req.params.id;
+	try {
+		if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+		// Here we need find the post from mongooseDB with this id:
+		const post = await PostModel.findById(id);
+		const updatedLikedPost = await PostModel.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+		res.status(200).json(updatedLikedPost)
+	} catch (error) {
+		res.status(400).json({ msg: error.message });
+	}
+}
