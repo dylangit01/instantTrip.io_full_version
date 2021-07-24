@@ -18,6 +18,7 @@ const Form = () => {
 		selectedFile: '',
 	});
 
+	// In Form component, the initial postID value is null as it comes from Post component when click the "..."
 	const dispatch = useDispatch();
 	const postID = useSelector((state) => state.postID);
 
@@ -32,7 +33,7 @@ const Form = () => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
-	// Use dispatch the action whenever create a new post
+	// Dispatch the action whenever creating a new post
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
@@ -87,6 +88,8 @@ const Form = () => {
 					name='description'
 					variant='outlined'
 					label='Description'
+					multiline
+					rows={4}
 					fullWidth
 					value={description}
 					onChange={(e) => handleChange(e)}
@@ -119,7 +122,7 @@ const Form = () => {
 					type='submit'
 					fullWidth
 				>
-					Create
+					{postID ? 'Update' : 'Create'}
 				</Button>
 
 				<Button variant='contained' color='secondary' size='small' type='submit' fullWidth onClick={handleClear}>

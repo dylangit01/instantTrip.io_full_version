@@ -5,7 +5,7 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@
 import { ThumbUpAlt, Delete, MoreHoriz } from '@material-ui/icons';
 
 import { useDispatch } from 'react-redux';
-import { getCurrentId, deletePost } from '../../redux/actions/posts';
+import { getCurrentId, deletePost, likePost } from '../../redux/actions/posts';
 
 const Post = ({post}) => {
 	const classes = useStyles();
@@ -33,16 +33,16 @@ const Post = ({post}) => {
 				{title}
 			</Typography>
 			<CardContent>
-				<Typography variant='body2' color='textSecondary' component='p'>
+				<Typography className={classes.descWidth} variant='body2' color='textSecondary' component='p'>
 					{description}
 				</Typography>
 			</CardContent>
 			<CardActions className={classes.cardActions}>
-				<Button size='small' color='primary' onClick={() => {}}>
-					<ThumbUpAlt fontSize='small' /> Like {likeCount}
+				<Button size='small' color='primary' onClick={() => dispatch(likePost(_id))}>
+					<ThumbUpAlt fontSize='small' /> &nbsp; Like {likeCount}
 				</Button>
 				<Button size='small' color='primary' onClick={() => dispatch(deletePost(_id))}>
-					<Delete fontSize='small' /> Delete
+					<Delete fontSize='small' /> &nbsp; Delete
 				</Button>
 			</CardActions>
 		</Card>
