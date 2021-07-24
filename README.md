@@ -11,6 +11,8 @@
 npm start
 
 ## Client Side Dependencies
+* jwt-decode: creating authentication
+* react-google-login: google authentication
 * axios: for making API requests
 * redux: React state management tool
 * react-redux: react redux version
@@ -43,6 +45,8 @@ npm start
 * Use {useSelector} from 'react-redux' to access global store to get any state object, such as "const posts = useSelector(state => state.posts)"
 
 ## Server Side Dependencies
+* bcryptjs: hash password
+* jsonwebtoken: building security account
 * body-parser: enable to send post requests result to frontend
 * cors: enable cross origin requests
 * express: as a framework to enable for creating routes
