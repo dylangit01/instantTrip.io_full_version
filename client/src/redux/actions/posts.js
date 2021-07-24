@@ -4,6 +4,7 @@ export const FETCH_ALL = 'FETCH_ALL';
 export const CREATE_POST = 'CREATE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
+export const LIKE_POST = 'LIKE_POST'
 
 export const GET_ID = 'GET_ID';
 export const CLEAR_ID = 'CLEAR_ID';
@@ -32,6 +33,7 @@ export const createPost = (newPost) => async(dispatch) => {
 export const updatePost = (id, updatedPost) => async (dispatch) => {
 	try {
 		const { data } = await api.updatePost(id, updatedPost);
+		console.log({data});
 		dispatch({type: UPDATE_POST, payload: data})
 	} catch (error) {
 		console.log(error);
@@ -43,6 +45,15 @@ export const deletePost = id => async (dispatch) => {
 		const {data} = await api.deletePost(id);
 		console.log(data.message);
 		dispatch({type: DELETE_POST, payload: id})
+	} catch (error) {
+		console.log(error);
+	}
+}
+
+export const likePost = id => async (dispatch) => {
+	try {
+		const { data } = await api.likePost(id);
+		dispatch({type: LIKE_POST, payload: data})
 	} catch (error) {
 		console.log(error);
 	}

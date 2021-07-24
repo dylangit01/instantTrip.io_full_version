@@ -11,3 +11,5 @@ export const createPost = (newPost) => axios.post(endpoint, newPost);
 export const updatePost = (id, updatedPost) => axios.patch(`${endpoint}/${id}`, updatedPost);
 
 export const deletePost = (id) => axios.delete(`${endpoint}/${id}`);
+
+export const likePost = (id) => axios.patch(`${endpoint}/${id}/like`);
