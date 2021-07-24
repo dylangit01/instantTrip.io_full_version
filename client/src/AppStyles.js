@@ -14,6 +14,12 @@ export default makeStyles(() => ({
 	heading: {
 		fontWeight: 'bold',
 		color: 'rgba(222,144,255, 1)',
+		'@media (max-width:600px)': {
+			height: '50px',
+			fontSize: '40px',
+			display: 'flex',
+			alignItems:'center'
+		}
 	},
 	image: {
 		marginLeft: '30px',
