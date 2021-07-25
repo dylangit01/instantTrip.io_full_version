@@ -12,7 +12,6 @@ export default makeStyles((theme) => ({
 		height: '80px',
 		overflow: 'hidden',
 		padding: '5px 50px',
-		background: '#dddddd',
 		'@media (max-width: 900px)': {
 			paddingLeft: '10px',
 		},

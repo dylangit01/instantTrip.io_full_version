@@ -4,7 +4,7 @@ import trips from '../../images/beach-logo.png';
 import {Link} from 'react-router-dom'
 
 const Navbar = () => {
-	const user = {};
+	const user = null;
 	const classes = useStyles();
 
 	const logout = () => {
