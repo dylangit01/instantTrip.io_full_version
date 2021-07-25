@@ -11,6 +11,11 @@ export default makeStyles((theme) => ({
 		alignItems: 'center',
 		height: '80px',
 		overflow: 'hidden',
+		padding: '5px 50px',
+		background: '#dddddd',
+		'@media (max-width: 900px)': {
+			paddingLeft: '10px',
+		},
 	},
 	heading: {
 		fontWeight: 'bold',
@@ -21,7 +26,7 @@ export default makeStyles((theme) => ({
 			display: 'flex',
 			alignItems: 'center',
 		},
-		textDecoration: 'none'
+		textDecoration: 'none',
 	},
 	image: {
 		marginLeft: '30px',
