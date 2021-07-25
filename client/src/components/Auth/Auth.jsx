@@ -20,7 +20,7 @@ const Auth = () => {
 
 	// Create generic Input for TextField, so that we don't have to create each TextField property (required, fullWidth and so on) for every TextField.
 	const Input = ({ half, name, handleChange, label, autoFocus, type, handleShowPassword }) => (
-		<Grid item xs={12} sm={half ? 6: 12}>
+		<Grid item xs={12} sm={half ? 6 : 12}>
 			<TextField
 				name={name}
 				onChange={handleChange}
@@ -30,7 +30,7 @@ const Auth = () => {
 				label={label}
 				autoFocus={autoFocus}
 				type={type}
-				InputProps={name === 'password' && {
+				InputProps={name === 'password' ? {
 					endAdornment: (
 						<InputAdornment position='end'>
 							<IconButton onClick={handleShowPassword}>
@@ -38,7 +38,7 @@ const Auth = () => {
 							</IconButton>
 						</InputAdornment>
 					)
-				}}
+				} : null}
 			/>
 		</Grid>
 	)
@@ -72,6 +72,9 @@ const Auth = () => {
 							<Input name='confirmPassword' label='Confirm Password' handleChange={handleChange} type='password' />
 						)}
 					</Grid>
+					<Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
+						{isSignUp ? 'Sign UP' : 'Sign In'}
+					</Button>
 				</form>
 			</Paper>
 		</Container>
