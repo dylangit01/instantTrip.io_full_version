@@ -3,6 +3,7 @@ import { Container, Grow, Grid } from '@material-ui/core';
 import Navbar from './components/Navbar/Navbar';
 import Posts from './components/Posts/Posts';
 import Form from './components/Form/Form';
+import { BrowserRouter } from 'react-router-dom';
 
 // Use redux
 import { useDispatch } from 'react-redux';
@@ -19,7 +20,8 @@ const App = () => {
 	}, [dispatch]);
 
 	return (
-		<Container maxWidth='lg'>
+		<BrowserRouter>
+			<Container maxWidth='lg'>
 			<Navbar />
 			<Grow in>
 				<Container>
@@ -34,6 +36,8 @@ const App = () => {
 				</Container>
 			</Grow>
 		</Container>
+		</BrowserRouter>
+		
 	);
 };
 

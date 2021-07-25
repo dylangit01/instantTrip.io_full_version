@@ -11,8 +11,6 @@
 npm start
 
 ## Client Side Dependencies
-* jwt-decode: creating authentication
-* react-google-login: google authentication
 * axios: for making API requests
 * redux: React state management tool
 * react-redux: react redux version
@@ -20,6 +18,9 @@ npm start
 * moment: for showing time and date in UI
 * react-file-base64: for converting images to string
 * @material-ui: for styling and icons
+* jwt-decode: creating authentication
+* react-google-login: create google account authentication
+* react-router-dom: adding new screens and flows to the app
 
 ## Client Side Structure
 * components: separate app into different isolated component with its own styles
