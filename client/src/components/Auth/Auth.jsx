@@ -18,7 +18,10 @@ const Auth = () => {
 		e.preventDefault();
 	};
 
-	const switchMode = () => setIsSignUp(prev => !prev)
+	const switchMode = () => {
+		setIsSignUp(prev => !prev);
+		setShowPassword(false)
+	}
 
 	// Create generic Input for TextField, so that we don't have to create each TextField property (required, fullWidth and so on) for every TextField.
 	const Input = ({ half, name, handleChange, label, autoFocus, type, handleShowPassword }) => (
