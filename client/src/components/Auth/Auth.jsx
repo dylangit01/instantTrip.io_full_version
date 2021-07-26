@@ -6,7 +6,7 @@ import useStyles from './styles';
 const Auth = () => {
 	const classes = useStyles();
 	const [showPassword, setShowPassword] = useState(false)
-	const isSignUp = false;
+	const [isSignUp, setIsSignUp] = useState(false);
 
 	const handleChange = () => {
 
@@ -17,6 +17,8 @@ const Auth = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 	};
+
+	const switchMode = () => setIsSignUp(prev => !prev)
 
 	// Create generic Input for TextField, so that we don't have to create each TextField property (required, fullWidth and so on) for every TextField.
 	const Input = ({ half, name, handleChange, label, autoFocus, type, handleShowPassword }) => (
@@ -75,6 +77,11 @@ const Auth = () => {
 					<Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
 						{isSignUp ? 'Sign UP' : 'Sign In'}
 					</Button>
+					<Grid container justifyContent='flex-end'>
+						<Button onClick={switchMode}>
+							{isSignUp ? 'Already have an account?  Sign In' : "Don't have an account? Sign Up"}
+						</Button>
+					</Grid>
 				</form>
 			</Paper>
 		</Container>

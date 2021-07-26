@@ -19,11 +19,14 @@ export default makeStyles((theme) => ({
 	heading: {
 		fontWeight: 'bold',
 		color: 'rgba(222,144,255, 1)',
-		'@media (max-width:600px)': {
+		'@media (max-width:1040px)': {
 			height: '50px',
 			fontSize: '40px',
 			display: 'flex',
 			alignItems: 'center',
+		},
+		'@media (max-width:650px)': {
+			fontSize: '30px',
 		},
 		textDecoration: 'none',
 	},
@@ -36,6 +39,9 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		justifyContent: 'flex-end',
 		width: '400px',
+		'@media (max-width:1040px)': {
+			width: '150px',
+		},
 	},
 	profile: {
 		display: 'flex',
