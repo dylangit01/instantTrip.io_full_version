@@ -48,7 +48,7 @@ npm start
 ## Server Side Dependencies
 * bcryptjs: hash password
 * jsonwebtoken: building security account
-* body-parser: enable to send post requests result to frontend
+* body-parser: parsing the incoming request bodies in a middleware before handling it
 * cors: enable cross origin requests
 * express: as a framework to enable for creating routes
 * mongoose: to create models for the posts
