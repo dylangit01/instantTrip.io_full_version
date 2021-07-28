@@ -1,16 +1,33 @@
+import React, { useState, useEffect } from 'react';
 import { AppBar, Typography, Toolbar, Button, Avatar } from '@material-ui/core';
 import useStyles from './styles';
 import trips from '../../images/beach-logo.png';
-import {Link} from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import { LOGOUT } from '../../redux/actions/posts';
 
 const Navbar = () => {
-	const user = null;
 	const classes = useStyles();
 
+	const dispatch = useDispatch();
+	const history = useHistory();
+	// useLocation hook is used to remember the current url location? whenever the location is changed, the useEffect re-rendered
+	const location = useLocation();
+
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+	// console.log(user);
+
+	useEffect(() => {
+		const token = user?.token;
+		setUser(JSON.parse(localStorage.getItem('profile')));
+	}, [location]);
+
 	const logout = () => {
-
-	}
-
+		dispatch({ type: LOGOUT });
+		history.push('/');
+		setUser(null);
+	};
 
 	return (
 		<AppBar className={classes.appBar} position='static' color='inherit'>
@@ -41,6 +58,6 @@ const Navbar = () => {
 			</div>
 		</AppBar>
 	);
-}
+};
 
 export default Navbar;

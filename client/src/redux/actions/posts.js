@@ -1,13 +1,19 @@
 import * as api from '../../api';  // Import all methods as api from api folder
 
+// For posts
 export const FETCH_ALL = 'FETCH_ALL';
 export const CREATE_POST = 'CREATE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const LIKE_POST = 'LIKE_POST';
 
+// For post ID
 export const GET_ID = 'GET_ID';
 export const CLEAR_ID = 'CLEAR_ID';
+
+// For Auth
+export const AUTH = 'AUTH';
+export const LOGOUT = 'LOGOUT';
 
 // Create an action to fetch the data
 export const getPosts = () => async(dispatch) => {

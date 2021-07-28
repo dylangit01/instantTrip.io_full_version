@@ -1,12 +1,22 @@
 import React, {useState} from 'react';
 import { Avatar, Button, TextField, Paper, Grid, Typography, Container, InputAdornment, IconButton } from '@material-ui/core';
-import { LockOutlined, Visibility, VisibilityOff } from '@material-ui/icons';
+import { LockOutlined, Looks, Visibility, VisibilityOff } from '@material-ui/icons';
 import useStyles from './styles';
+import { useHistory } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import { AUTH } from '../../redux/actions/posts';
+
+import { GoogleLogin } from 'react-google-login';
+import { FaGoogle } from 'react-icons/fa';
 
 const Auth = () => {
 	const classes = useStyles();
 	const [showPassword, setShowPassword] = useState(false)
 	const [isSignUp, setIsSignUp] = useState(false);
+	const history = useHistory();
+
+	const dispatch = useDispatch();
 
 	const handleChange = () => {
 
@@ -22,6 +32,23 @@ const Auth = () => {
 		setIsSignUp(prev => !prev);
 		setShowPassword(false)
 	}
+
+	  const googleSuccess = async (res) => {
+			const result = res?.profileObj;
+			const token = res?.tokenId;
+
+			try {
+				dispatch({ type: AUTH, data: { result, token } });
+				// After login, it will redirect to home page right away:
+				history.push('/');
+			} catch (e) {
+				console.log(e); 
+			}
+		};
+		const googleFailure = (error) => {
+			console.log(error);
+			console.log('Google Sign In was unsuccessful, please try again');
+		};
 
 	// Create generic Input for TextField, so that we don't have to create each TextField property (required, fullWidth and so on) for every TextField.
 	const Input = ({ half, name, handleChange, label, autoFocus, type, handleShowPassword }) => (
@@ -80,6 +107,27 @@ const Auth = () => {
 					<Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
 						{isSignUp ? 'Sign UP' : 'Sign In'}
 					</Button>
+					{/* Implement Google Login */}
+					<GoogleLogin
+						clientId='411530278656-9lcvkcnicv08kd95lhse0q41mgk1r7kc.apps.googleusercontent.com'
+						render={(renderProps) => (
+							<Button
+								variant='contained'
+								className={classes.googleButton}
+								color='primary'
+								fullWidth
+								onClick={renderProps.onClick}
+								disabled={renderProps.disabled}
+								startIcon={<FaGoogle />}
+							>
+								Google Sign In
+							</Button>
+						)}
+						onSuccess={googleSuccess}
+						onFailure={googleFailure}
+						cookiePolicy='single_host_origin'
+					/>
+
 					<Grid container justifyContent='flex-end'>
 						<Button onClick={switchMode}>
 							{isSignUp ? 'Already have an account?  Sign In' : "Don't have an account? Sign Up"}
