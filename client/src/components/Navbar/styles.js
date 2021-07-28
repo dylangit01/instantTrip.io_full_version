@@ -38,7 +38,7 @@ export default makeStyles((theme) => ({
 	toolbar: {
 		display: 'flex',
 		justifyContent: 'flex-end',
-		width: '400px',
+		width: '300px',
 		'@media (max-width:1040px)': {
 			width: '150px',
 		},
@@ -46,7 +46,11 @@ export default makeStyles((theme) => ({
 	profile: {
 		display: 'flex',
 		justifyContent: 'space-between',
-		width: '400px',
+		alignItems: 'center',
+		width: '300px',
+		'@media (max-width:800px)': {
+			width: '150px',
+		},
 	},
 	userName: {
 		display: 'flex',
@@ -55,6 +59,8 @@ export default makeStyles((theme) => ({
 	brandContainer: {
 		display: 'flex',
 		alignItems: 'center',
+		justifyContent: 'flex-end',
+		width: '100%',
 	},
 	purple: {
 		color: theme.palette.getContrastText(deepPurple[500]),
