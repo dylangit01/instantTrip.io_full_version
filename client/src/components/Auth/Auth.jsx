@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Avatar, Button, TextField, Paper, Grid, Typography, Container, InputAdornment, IconButton } from '@material-ui/core';
-import { LockOutlined, Looks, Visibility, VisibilityOff } from '@material-ui/icons';
+import { LockOutlined, Visibility, VisibilityOff } from '@material-ui/icons';
 import useStyles from './styles';
 import { useHistory } from 'react-router-dom';
 
