@@ -44,6 +44,7 @@ const Form = () => {
 		}
 		handleClear();
 	};
+	
 	const handleClear = () => {
 		dispatch(clearCurrentId())
 		setFormData({
