@@ -125,11 +125,11 @@ const Form = () => {
 				>
 					{postID ? 'Update' : 'Create'}
 				</Button>
+			</form>
 
 				<Button variant='contained' color='secondary' size='small' type='submit' fullWidth onClick={handleClear}>
 					Clear
 				</Button>
-			</form>
 		</Paper>
 	);
 };
