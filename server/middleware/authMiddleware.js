@@ -1,5 +1,7 @@
 // Once a user is logged in, the user can do all kinds of actions such as create post, update post, delete post and so on..., so the backend needs to be able to react to those actions based on the userId, this id is obtained by using authentication middleware, and this "userId" will be used by other files using next():
 
+// e.g: user wants to like a post => login => user clicks the like button => auth middleware decides to confirm or deny the user => next() => allow user to do like the post
+
 import jwt from 'jsonwebtoken';
 
 const authMiddleware = async (req, res, next) => {
@@ -27,3 +29,5 @@ const authMiddleware = async (req, res, next) => {
 		console.log(error);
 	}
 }
+
+export default authMiddleware;
