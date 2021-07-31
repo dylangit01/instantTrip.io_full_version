@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv'
-import postsRouter from './routes/posts.js'
+import postRouter from './routes/post.js'
+import userRouter from './routes/user.js';
 
 const app = express();
 app.use(cors())
@@ -25,8 +26,8 @@ app.get('/', (req, res) => {
 	res.send('App API is running successfully')
 })
 
-// Setup for posts routes
-app.use('/posts', postsRouter)
+app.use('/posts', postRouter);
+app.use('/user', userRouter);
 
 // app.listen(PORT, () => {
 // 	console.log(`App listening on port ${PORT}!`);
