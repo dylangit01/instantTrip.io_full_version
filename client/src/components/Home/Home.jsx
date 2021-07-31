@@ -23,7 +23,7 @@ const Home = () => {
 
 	// Search function
 	const searchedPosts = posts.filter((post) => {
-		const combineSearch = `${post.creator} ${post.title} ${post.tags}`;
+		const combineSearch = `${post.creator} ${post.title} ${post.tags} ${post.description}`;
 		return combineSearch.toLowerCase().includes(searchField.toLowerCase());
 	});
 
