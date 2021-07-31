@@ -7,16 +7,14 @@ import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost, clearCurrentId } from '../../redux/actions/posts';
 
+const initialValue = { title: '', description: '', creator: '', tags: '', selectedFile: '' };
+const validateOnChange = true;
+
 const Form = () => {
 	const classes = useStyles();
 
-	const [formData, setFormData] = useState({
-		title: '',
-		description: '',
-		creator: '',
-		tags: '',
-		selectedFile: '',
-	});
+	const [formData, setFormData] = useState(initialValue);
+	const [errors, setErrors] = useState({});
 
 	// In Form component, the initial postID value is null as it comes from Post component when click the "..."
 	const dispatch = useDispatch();
@@ -29,42 +27,50 @@ const Form = () => {
 		if(post) setFormData(post)
 	}, [post])
 
+	const validate = (fieldValues = formData) => {
+		let temp = { ...errors };
+
+		if ('title' in fieldValues) temp.title = fieldValues.title ? '' : 'Title is required';
+		if ('creator' in fieldValues) temp.creator = fieldValues.creator ? '' : 'Creator is required';
+		if ('description' in fieldValues) temp.description = fieldValues.description ? '' : 'Message is required';
+
+		setErrors({ ...temp });
+
+		if (fieldValues === formData) return Object.values(temp).every((x) => x === '');
+	};
+
 	const handleChange = (e) => {
-		setFormData({ ...formData, [e.target.name]: e.target.value });
+		const { name, value } = e.target;
+		setFormData({ ...formData, [name]: value });
+		if (validateOnChange) {
+			validate({ [name]: value });
+		}
 	};
 
 	// Dispatch the action whenever creating a new post
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (postID) {
-			dispatch(updatePost(postID, formData));
-		} else {
-			dispatch(createPost(formData));
-		}
-		handleClear();
+		if (validate()) {
+			if (postID) {
+				dispatch(updatePost(postID, formData));
+			} else {
+				dispatch(createPost(formData));
+			}
+			handleClear();
+		} else alert('Please fix below errors');
 	};
 	
 	const handleClear = () => {
-		dispatch(clearCurrentId())
-		setFormData({
-			title: '',
-			description: '',
-			creator: '',
-			tags: '',
-			selectedFile: '',
-		});
+		dispatch(clearCurrentId());
+		setFormData(initialValue);
+		setErrors({});
 	};
 
 	const { title, description, creator, tags } = formData;
 	return (
 		<Paper className={classes.paper}>
-			<form
-				autoComplete='off'
-				noValidate
-				className={`${classes.root} ${classes.form}`}
-				onSubmit={(e) => handleSubmit(e)}
-			>
+			<form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
 				<Typography variant='h6'>{postID ? 'Editing' : 'Creating'} a Trip</Typography>
 
 				<TextField
@@ -73,7 +79,8 @@ const Form = () => {
 					label='Creator'
 					fullWidth
 					value={creator}
-					onChange={(e) => handleChange(e)}
+					onChange={handleChange}
+					{...(errors.creator && { error: true, helperText: errors.creator })}
 				/>
 
 				<TextField
@@ -82,18 +89,20 @@ const Form = () => {
 					label='Title'
 					fullWidth
 					value={title}
-					onChange={(e) => handleChange(e)}
+					onChange={handleChange}
+					{...(errors.title && { error: true, helperText: errors.title })}
 				/>
 
 				<TextField
 					name='description'
 					variant='outlined'
-					label='Description'
+					label='Message'
 					multiline
 					rows={4}
 					fullWidth
 					value={description}
-					onChange={(e) => handleChange(e)}
+					onChange={handleChange}
+					{...(errors.description && { error: true, helperText: errors.description })}
 				/>
 
 				<TextField
@@ -127,9 +136,9 @@ const Form = () => {
 				</Button>
 			</form>
 
-				<Button variant='contained' color='secondary' size='small' type='submit' fullWidth onClick={handleClear}>
-					Clear
-				</Button>
+			<Button variant='contained' color='secondary' size='small' type='submit' fullWidth onClick={handleClear}>
+				Clear
+			</Button>
 		</Paper>
 	);
 };

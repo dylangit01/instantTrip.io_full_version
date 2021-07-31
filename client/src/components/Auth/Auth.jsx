@@ -39,6 +39,7 @@ const Auth = () => {
 
 			try {
 				dispatch({ type: AUTH, data: { result, token } });
+
 				// After login, it will redirect to home page right away:
 				history.push('/');
 			} catch (e) {
@@ -84,7 +85,7 @@ const Auth = () => {
 				<Typography component='h1' variant='h5'>
 					{isSignUp ? 'Sign Up' : 'Sign In'}
 				</Typography>
-				<form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
+				<form className={classes.form} onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
 						{isSignUp && (
 							<>
