@@ -11,13 +11,13 @@ const Post = ({post}) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 
-	const { _id, title, creator, description, tags, selectedFile, createAt, likeCount } = post;
+	const { _id, title, creator, description, tags, selectedFile, likeCount } = post;
 	return (
 		<Card className={classes.card}>
 			<CardMedia className={classes.media} image={selectedFile || '../../images/boat-trip.png'} title={post.title} />
 			<div className={classes.overlay}>
 				<Typography variant='h6'>{creator}</Typography>
-				<Typography variant='body2'>{moment(createAt).fromNow()}</Typography>
+				<Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
 			</div>
 			<div className={classes.overlay2}>
 				<Button style={{ color: 'white' }} size='small' onClick={() => dispatch(getCurrentId(_id))}>
