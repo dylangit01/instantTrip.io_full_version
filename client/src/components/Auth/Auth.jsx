@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { AUTH } from '../../redux/actions/posts';
+import { signUp, signIn } from '../../redux/actions/auth';
 
 import { GoogleLogin } from 'react-google-login';
 import { FaGoogle } from 'react-icons/fa';
@@ -31,6 +32,11 @@ const Auth = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (isSignUp) {
+			dispatch(signUp(formData, history))
+		} else {
+			dispatch(signIn(formData, history));
+		}
 	};
 
 	const switchMode = () => {
@@ -88,7 +94,7 @@ const Auth = () => {
 					<Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
 						{isSignUp ? 'Sign UP' : 'Sign In'}
 					</Button>
-					
+
 					{/* Implement Google Login */}
 					<GoogleLogin
 						clientId='411530278656-9lcvkcnicv08kd95lhse0q41mgk1r7kc.apps.googleusercontent.com'
