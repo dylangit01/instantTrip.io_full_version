@@ -17,4 +17,12 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		justifyContent: 'center',
 	},
+	noResult: {
+		height: '50vh',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		// fontSize: '2rem',
+		color: '#666',
+	},
 }));
