@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
-import { Avatar, Button, TextField, Paper, Grid, Typography, Container, InputAdornment, IconButton } from '@material-ui/core';
-import { LockOutlined, Visibility, VisibilityOff } from '@material-ui/icons';
+import Input from '../Input/Input';
+import React, { useState } from 'react';
+import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
+import { LockOutlined } from '@material-ui/icons';
 import useStyles from './styles';
 import { useHistory } from 'react-router-dom';
 
@@ -10,71 +11,50 @@ import { AUTH } from '../../redux/actions/posts';
 import { GoogleLogin } from 'react-google-login';
 import { FaGoogle } from 'react-icons/fa';
 
+const initialData = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
+
 const Auth = () => {
 	const classes = useStyles();
-	const [showPassword, setShowPassword] = useState(false)
+	const [showPassword, setShowPassword] = useState(false);
 	const [isSignUp, setIsSignUp] = useState(false);
+	const [formData, setFormData] = useState(initialData);
 	const history = useHistory();
 
 	const dispatch = useDispatch();
 
-	const handleChange = () => {
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setFormData({ ...formData, [name]: value });
+	};
 
-	}
-
-	const handleShowPassword = () => setShowPassword((prevShowPassword)=> !prevShowPassword)
+	const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 	};
 
 	const switchMode = () => {
-		setIsSignUp(prev => !prev);
-		setShowPassword(false)
-	}
+		setIsSignUp((prev) => !prev);
+		setShowPassword(false);
+	};
 
-	  const googleSuccess = async (res) => {
-			const result = res?.profileObj;
-			const token = res?.tokenId;
+	const googleSuccess = async (res) => {
+		const result = res?.profileObj;
+		const token = res?.tokenId;
 
-			try {
-				dispatch({ type: AUTH, data: { result, token } });
+		try {
+			dispatch({ type: AUTH, data: { result, token } });
 
-				// After login, it will redirect to home page right away:
-				history.push('/');
-			} catch (e) {
-				console.log(e); 
-			}
-		};
-		const googleFailure = (error) => {
-			console.log(error);
-			console.log('Google Sign In was unsuccessful, please try again');
-		};
-
-	// Create generic Input for TextField, so that we don't have to create each TextField property (required, fullWidth and so on) for every TextField.
-	const Input = ({ half, name, handleChange, label, autoFocus, type, handleShowPassword }) => (
-		<Grid item xs={12} sm={half ? 6 : 12}>
-			<TextField
-				name={name}
-				onChange={handleChange}
-				variant='outlined'
-				required
-				fullWidth
-				label={label}
-				autoFocus={autoFocus}
-				type={type}
-				InputProps={name === 'password' ? {
-					endAdornment: (
-						<InputAdornment position='end'>
-							<IconButton onClick={handleShowPassword}>
-								{type ==='password' ? <Visibility/> : <VisibilityOff/>}
-							</IconButton>
-						</InputAdornment>
-					)
-				} : null}
-			/>
-		</Grid>
-	)
+			// After login, it will redirect to home page right away:
+			history.push('/');
+		} catch (e) {
+			console.log(e);
+		}
+	};
+	const googleFailure = (error) => {
+		console.log(error);
+		console.log('Google Sign In was unsuccessful, please try again');
+	};
 
 	return (
 		<Container component='main' maxWidth='xs'>
@@ -108,6 +88,7 @@ const Auth = () => {
 					<Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
 						{isSignUp ? 'Sign UP' : 'Sign In'}
 					</Button>
+					
 					{/* Implement Google Login */}
 					<GoogleLogin
 						clientId='411530278656-9lcvkcnicv08kd95lhse0q41mgk1r7kc.apps.googleusercontent.com'
