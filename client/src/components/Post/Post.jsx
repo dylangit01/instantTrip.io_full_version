@@ -15,18 +15,16 @@ const Post = ({ post }) => {
 
 	const Likes = () => {
 		const likesLength = post.likes.length;
-		console.log({likesLength});
 		if (likesLength > 0) {
-			return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
-				? (
-					<>
-						<ThumbUpAlt fontSize='small' /> &nbsp; {likesLength >= 2 ? `${likesLength} likes` : `${likesLength} like`}
-					</>
-				) : (
-					<>
-						<ThumbUpAltOutlined fontSize='small' /> &nbsp; {likesLength} {likesLength === 1 ? 'Like' : 'Likes'}
-					</>
-				);
+			return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id)) ? (
+				<>
+					<ThumbUpAlt fontSize='small' /> &nbsp; {likesLength >= 2 ? `${likesLength} likes` : `${likesLength} like`}
+				</>
+			) : (
+				<>
+					<ThumbUpAltOutlined fontSize='small' /> &nbsp; {likesLength} {likesLength === 1 ? 'Like' : 'Likes'}
+				</>
+			);
 		}
 		return (
 			<>
@@ -44,11 +42,15 @@ const Post = ({ post }) => {
 				<Typography variant='h6'>{name}</Typography>
 				<Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
 			</div>
-			<div className={classes.overlay2}>
-				<Button style={{ color: 'white' }} size='small' onClick={() => dispatch(getCurrentId(_id))}>
-					<MoreHoriz fontSize='medium' />
-				</Button>
-			</div>
+
+			{(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+				<div className={classes.overlay2}>
+					<Button style={{ color: 'white' }} size='small' onClick={() => dispatch(getCurrentId(_id))}>
+						<MoreHoriz fontSize='medium' />
+					</Button>
+				</div>
+			)}
+
 			<div className={classes.details}>
 				<Typography variant='body2' color='textSecondary' component='h2'>
 					{tags.map((tag) => `#${tag} `)}
@@ -66,9 +68,11 @@ const Post = ({ post }) => {
 				<Button size='small' color='primary' disabled={!user?.result} onClick={() => dispatch(likePost(_id))}>
 					<Likes />
 				</Button>
-				<Button size='small' color='primary' onClick={() => dispatch(deletePost(_id))}>
-					<Delete fontSize='small' /> &nbsp; Delete
-				</Button>
+				{(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+					<Button size='small' color='primary' onClick={() => dispatch(deletePost(_id))}>
+						<Delete fontSize='small' /> &nbsp; Delete
+					</Button>
+				)}
 			</CardActions>
 		</Card>
 	);
