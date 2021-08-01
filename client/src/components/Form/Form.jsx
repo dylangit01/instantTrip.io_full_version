@@ -58,7 +58,7 @@ const Form = () => {
 			if (postID) {
 				dispatch(updatePost(postID, { ...formData, name: user?.result?.name }));
 			} else {
-				dispatch(createPost({...formData, name: user?.result?.name}));
+				dispatch(createPost({ ...formData, name: user?.result?.name }));
 			}
 			handleClear();
 		} else alert('Please fix below errors');

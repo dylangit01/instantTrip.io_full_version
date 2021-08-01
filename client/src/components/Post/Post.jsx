@@ -11,12 +11,12 @@ const Post = ({post}) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 
-	const { _id, title, creator, description, tags, selectedFile, likeCount } = post;
+	const { _id, title, name, description, tags, selectedFile, likeCount } = post;
 	return (
 		<Card className={classes.card}>
 			<CardMedia className={classes.media} image={selectedFile || '../../images/boat-trip.png'} title={post.title} />
 			<div className={classes.overlay}>
-				<Typography variant='h6'>{creator}</Typography>
+				<Typography variant='h6'>{name}</Typography>
 				<Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
 			</div>
 			<div className={classes.overlay2}>
