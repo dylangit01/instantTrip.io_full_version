@@ -25,7 +25,7 @@ const authMiddleware = async (req, res, next) => {
 			// For Google token using decode, and we don't need the secret string
 			decodedData = jwt.decode(token);
 			req.userId = decodedData.sub;
-			// sub is a specific google id that differentiates every single google user
+			// sub === googleId, which is a specific google id that differentiates every single google user
 		}
 		// Passing userId to other file to use:
 		next();

@@ -1,17 +1,42 @@
-import React from 'react'
+import React from 'react';
 import useStyles from './styles';
 import moment from 'moment';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core';
-import { ThumbUpAlt, Delete, MoreHoriz } from '@material-ui/icons';
+import { ThumbUpAlt, Delete, MoreHoriz, ThumbUpAltOutlined } from '@material-ui/icons';
 
 import { useDispatch } from 'react-redux';
 import { getCurrentId, deletePost, likePost } from '../../redux/actions/posts';
 
-const Post = ({post}) => {
+const Post = ({ post }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 
-	const { _id, title, name, description, tags, selectedFile, likeCount } = post;
+	const user = JSON.parse(localStorage.getItem('profile'));
+
+	const Likes = () => {
+		const likesLength = post.likes.length;
+		console.log({likesLength});
+		if (likesLength > 0) {
+			return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id))
+				? (
+					<>
+						<ThumbUpAlt fontSize='small' /> &nbsp; {likesLength >= 2 ? `${likesLength} likes` : `${likesLength} like`}
+					</>
+				) : (
+					<>
+						<ThumbUpAltOutlined fontSize='small' /> &nbsp; {likesLength} {likesLength === 1 ? 'Like' : 'Likes'}
+					</>
+				);
+		}
+		return (
+			<>
+				<ThumbUpAltOutlined fontSize='small' />
+				&nbsp;Like
+			</>
+		);
+	};
+
+	const { _id, title, name, description, tags, selectedFile } = post;
 	return (
 		<Card className={classes.card}>
 			<CardMedia className={classes.media} image={selectedFile || '../../images/boat-trip.png'} title={post.title} />
@@ -38,8 +63,8 @@ const Post = ({post}) => {
 				</Typography>
 			</CardContent>
 			<CardActions className={classes.cardActions}>
-				<Button size='small' color='primary' onClick={() => dispatch(likePost(_id))}>
-					<ThumbUpAlt fontSize='small' /> &nbsp; Like {likeCount}
+				<Button size='small' color='primary' disabled={!user?.result} onClick={() => dispatch(likePost(_id))}>
+					<Likes />
 				</Button>
 				<Button size='small' color='primary' onClick={() => dispatch(deletePost(_id))}>
 					<Delete fontSize='small' /> &nbsp; Delete
@@ -47,6 +72,6 @@ const Post = ({post}) => {
 			</CardActions>
 		</Card>
 	);
-}
+};
 
-export default Post
+export default Post;
