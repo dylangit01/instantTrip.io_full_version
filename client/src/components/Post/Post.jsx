@@ -43,6 +43,7 @@ const Post = ({ post }) => {
 				<Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
 			</div>
 
+			{/* creator is the req.userId passed from the backend when new post has been created */}
 			{(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
 				<div className={classes.overlay2}>
 					<Button style={{ color: 'white' }} size='small' onClick={() => dispatch(getCurrentId(_id))}>
@@ -68,6 +69,7 @@ const Post = ({ post }) => {
 				<Button size='small' color='primary' disabled={!user?.result} onClick={() => dispatch(likePost(_id))}>
 					<Likes />
 				</Button>
+
 				{(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
 					<Button size='small' color='primary' onClick={() => dispatch(deletePost(_id))}>
 						<Delete fontSize='small' /> &nbsp; Delete

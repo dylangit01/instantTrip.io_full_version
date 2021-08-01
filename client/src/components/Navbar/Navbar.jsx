@@ -3,6 +3,7 @@ import { AppBar, Typography, Toolbar, Button, Avatar } from '@material-ui/core';
 import useStyles from './styles';
 import trips from '../../images/beach-logo.png';
 import { Link, useHistory, useLocation } from 'react-router-dom';
+import decode from 'jwt-decode';
 
 import { useDispatch } from 'react-redux';
 import { LOGOUT } from '../../redux/actions/auth';
@@ -19,7 +20,12 @@ const Navbar = () => {
 	// console.log(user);
 
 	useEffect(() => {
+		// verify if the token expired:
 		const token = user?.token;
+		if (token) {
+			const decodedToken = decode(token);
+			if (decodedToken * 1000 < new Date().getTime()) logout();
+		}
 		setUser(JSON.parse(localStorage.getItem('profile')));
 	}, [location]);
 
