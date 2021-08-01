@@ -5,7 +5,7 @@ import trips from '../../images/beach-logo.png';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { LOGOUT } from '../../redux/actions/posts';
+import { LOGOUT } from '../../redux/actions/auth';
 
 const Navbar = () => {
 	const classes = useStyles();

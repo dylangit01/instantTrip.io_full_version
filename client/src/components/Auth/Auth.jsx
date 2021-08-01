@@ -6,7 +6,7 @@ import useStyles from './styles';
 import { useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { AUTH } from '../../redux/actions/posts';
+import { AUTH } from '../../redux/actions/auth';
 import { signUp, signIn } from '../../redux/actions/auth';
 
 import { GoogleLogin } from 'react-google-login';

@@ -64,7 +64,7 @@ export const likePost = async (req, res) => {
 		const index = post.likes.findIndex(id => id === String(req.userId));
 		if (index === -1) {
 			// since index doesn't exist, then it will like the post
-			post.likes.push(req.userId)
+			post.likes.push(String(req.userId))
 		} else {
 			// dislike the post
 			post.likes = post.likes.filter(id => id !== String(req.userId))

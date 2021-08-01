@@ -12,15 +12,15 @@ const authMiddleware = async (req, res, next) => {
 
 		let decodedData;
 		if (token && isCustomAuthToken) {
-			decodedData = jwt.verify(token, 'test')
+			decodedData = jwt.verify(token, 'test');
 			// here the 'test' is the secret string that has been setup in userController;
 
 			// When user is logged in, system knows which user is logged in and done some actions, the system is going to store the user's id.
-			req.userId = decodedData?.id;
+			req.userId = decodedData.id;
 		} else {
 			// For Google token using decode, and we don't need the secret string
-			decodedData = jwt.decode(token)
-			req.userId = decodedData?.sub
+			decodedData = jwt.decode(token);
+			req.userId = decodedData.sub;
 			// sub is a specific google id that differentiates every single google user
 		}
 		// Passing userId to other file to use:
@@ -28,7 +28,7 @@ const authMiddleware = async (req, res, next) => {
 	} catch (error) {
 		console.log(error);
 	}
-}
+};
 
 export default authMiddleware;
 
