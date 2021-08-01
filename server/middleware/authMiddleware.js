@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 const authMiddleware = async (req, res, next) => {
 	try {
-		console.log(req.headers.authorization);
+		// console.log(req.headers.authorization);
 		if (!req.headers.authorization) {
 			console.log('no authorization passed to authMiddleware');
 		};
