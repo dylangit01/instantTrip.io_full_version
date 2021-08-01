@@ -27,6 +27,7 @@ const Navbar = () => {
 			if (decodedToken * 1000 < new Date().getTime()) logout();
 		}
 		setUser(JSON.parse(localStorage.getItem('profile')));
+		// eslint-disable-next-line
 	}, [location]);
 
 	const logout = () => {
