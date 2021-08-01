@@ -6,6 +6,9 @@ import jwt from 'jsonwebtoken';
 
 const authMiddleware = async (req, res, next) => {
 	try {
+		if (!req.header.authorization) {
+			console.log('no authorization passed to authMiddleware');
+		};
 		const token = req.header.authorization.split(' ')[1];
 		const isCustomAuthToken = token.length < 500;
 		// another token is the Google OAuth Token

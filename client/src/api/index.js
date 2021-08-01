@@ -16,6 +16,15 @@ import axios from 'axios';
 // In order to use some advanced axios feature, modify above codes to below:
 const API = axios.create({ baseURL: 'http://localhost:5000' });
 
+// After user is logged in, the first thing is to pass the "req.header.authorization" to the backend authMiddleware to get the token, without this step, the middleware cannot verify the user, so the user cannot do related actions. And this toke is a "Bearer" token, is it starts with it.
+
+API.interceptors.request.use(req => {
+	if (localStorage.getItem('profile')) {
+		req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`
+	}
+	return req;
+})
+
 export const fetchPosts = () => API.get('/posts');
 export const createPost = (newPost) => API.post('/posts', newPost);
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
