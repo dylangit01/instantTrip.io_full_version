@@ -7,7 +7,7 @@ import FileBase from 'react-file-base64';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost, clearCurrentId } from '../../redux/actions/posts';
 
-const initialValue = { title: '', description: '', creator: '', tags: '', selectedFile: '' };
+const initialValue = { title: '', description: '', tags: '', selectedFile: '' };
 const validateOnChange = true;
 
 const Form = () => {
@@ -22,6 +22,9 @@ const Form = () => {
 
 	// If current postID exists, then find the current post with that ID:
 	const post = useSelector((state) => postID && state.posts.find((post) => post._id === postID));
+
+	// Since add user authentication, we can grab the user from the localStorage:
+	const user = JSON.parse(localStorage.getItem('profile'));
 
 	useEffect(() => {
 		if(post) setFormData(post)
@@ -53,9 +56,9 @@ const Form = () => {
 
 		if (validate()) {
 			if (postID) {
-				dispatch(updatePost(postID, formData));
+				dispatch(updatePost(postID, { ...formData, name: user?.result?.name }));
 			} else {
-				dispatch(createPost(formData));
+				dispatch(createPost({...formData, name: user?.result?.name}));
 			}
 			handleClear();
 		} else alert('Please fix below errors');
@@ -67,13 +70,25 @@ const Form = () => {
 		setErrors({});
 	};
 
-	const { title, description, creator, tags } = formData;
+	if (!user?.result?.name) {
+		return (
+			<Paper className={classes.paper}>
+				<Typography variant='h6' align='center'>
+					Please Sign In to create your own events and like other's posts.
+				</Typography>
+			</Paper>
+		);
+	}
+
+	const { title, description, tags } = formData;
 	return (
 		<Paper className={classes.paper}>
 			<form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
 				<Typography variant='h6'>{postID ? 'Editing' : 'Creating'} a Trip</Typography>
 
-				<TextField
+				{/* Since having Login part, we don't need the creator in the form any more, instead, it will be the req: userId of the token in the localStorage */}
+
+				{/* <TextField
 					name='creator'
 					variant='outlined'
 					label='Creator'
@@ -81,7 +96,7 @@ const Form = () => {
 					value={creator}
 					onChange={handleChange}
 					{...(errors.creator && { error: true, helperText: errors.creator })}
-				/>
+				/> */}
 
 				<TextField
 					name='title'
