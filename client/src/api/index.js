@@ -14,8 +14,7 @@ import axios from 'axios';
 
 
 // In order to use some advanced axios feature, modify above codes to below:
-
-const API = axios.create({ baseURL: 'https://event-book-project.herokuapp.com/' });
+const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 export const fetchPosts = () => API.get('/posts');
 export const createPost = (newPost) => API.post('/posts', newPost);
@@ -23,5 +22,5 @@ export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updated
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const likePost = (id) => API.patch(`/posts/${id}/like`);
 
-export const signIn = (formData) => API.post('/auth/signin', formData);
-export const signUp = (formData) => API.post('/auth/signup', formData);
+export const signIn = (formData) => API.post('/user/signin', formData);
+export const signUp = (formData) => API.post('/user/signup', formData);

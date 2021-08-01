@@ -6,8 +6,7 @@ import useStyles from './styles';
 import { useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
-import { AUTH } from '../../redux/actions/auth';
-import { signUp, signIn } from '../../redux/actions/auth';
+import { AUTH, signUp, signIn } from '../../redux/actions/auth';
 
 import { GoogleLogin } from 'react-google-login';
 import { FaGoogle } from 'react-icons/fa';
@@ -49,7 +48,8 @@ const Auth = () => {
 		const token = res?.tokenId;
 
 		try {
-			dispatch({ type: AUTH, data: { result, token } });
+			// here: write the google login action directly, not in actions file:
+			dispatch({ type: AUTH, payload: { result, token } });
 
 			// After login, it will redirect to home page right away:
 			history.push('/');
