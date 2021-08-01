@@ -13,8 +13,12 @@ export const getPosts = async (req, res) => {
 
 export const createPost = async (req, res) => {
 	const post = req.body;
+
 	// Need to convert body to mongoose data based on model first
-	const newPost = PostModel(post);
+	// const newPost = PostModel(post);
+
+	// Since we add authentication for user, we also need to update newPost as below:
+	const newPost = PostModel({...post, creator: req.userId, createAt: new Date().toISOString()});
 
 	try {
 		// First step was to save the new post into mongoose
