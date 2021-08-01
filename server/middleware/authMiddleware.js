@@ -31,3 +31,5 @@ const authMiddleware = async (req, res, next) => {
 }
 
 export default authMiddleware;
+
+// We will use the middleware in post routes file, so only verified user can do those actions

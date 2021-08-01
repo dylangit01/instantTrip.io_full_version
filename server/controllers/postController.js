@@ -52,10 +52,26 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
 	const id = req.params.id;
 	try {
+		// "req.userId" is from authMiddleware in postRoute
+		if (!req.userId) return res.json({ message: 'Unauthenticated' })
+		
 		if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-		// Here we need find the post from mongooseDB with this id:
+		// Here we need find the post from mongooseDB with parameter id:
 		const post = await PostModel.findById(id);
-		const updatedLikedPost = await PostModel.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+
+		// After find the post, we need to check if the user's id is already in the likes array or not
+		// The "like" in postModel has been changed from number to string array(each user can only like post once, so it is an array of likes), so it pushes the "id" of each user when user likes the post, that's how we know who likes the specific post, and if the user already likes the post, when this user click the like button again, it will change to dislike, not the like
+		const index = post.likes.findIndex(id => id === String(req.userId));
+		if (index === -1) {
+			// since index doesn't exist, then it will like the post
+			post.likes.push(req.userId)
+		} else {
+			// dislike the post
+			post.likes = post.likes.filter(id => id !== String(req.userId))
+		}
+
+		// Now the updatedLikedPost is no longer as post.likeCount + 1, but post only
+		const updatedLikedPost = await PostModel.findByIdAndUpdate(id, post, { new: true });
 		res.status(200).json(updatedLikedPost)
 	} catch (error) {
 		res.status(400).json({ msg: error.message });
