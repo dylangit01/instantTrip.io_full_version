@@ -66,4 +66,11 @@ export default makeStyles((theme) => ({
 		color: theme.palette.getContrastText(deepPurple[500]),
 		backgroundColor: deepPurple[500],
 	},
+	mobileDrawer: {
+		marginTop: '30px',
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
 }));
