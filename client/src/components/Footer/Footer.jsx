@@ -16,3 +16,6 @@ const Footer = () => {
 }
 
 export default Footer
+
+
+// In order to have the best footer styles, we also need to create position: relative in the closest container for the footer component. (In this case, it's the App.jsx)
