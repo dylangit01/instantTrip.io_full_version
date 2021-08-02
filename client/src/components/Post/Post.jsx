@@ -37,7 +37,14 @@ const Post = ({ post }) => {
 	const { _id, title, name, description, tags, selectedFile } = post;
 	return (
 		<Card className={classes.card}>
-			<CardMedia className={classes.media} image={selectedFile || '../../images/boat-trip.png'} title={post.title} />
+			<CardMedia
+				className={classes.media}
+				image={
+					selectedFile ||
+					'https://media.istockphoto.com/photos/driving-offroad-in-western-australia-at-sunset-picture-id1127501364?k=6&m=1127501364&s=612x612&w=0&h=hsoSs6Y0HYt_mZ_01j_Bsb8W4LF6qcmGmL5MU1CITqw='
+				}
+				title={title}
+			/>
 			<div className={classes.overlay}>
 				<Typography variant='h6'>{name}</Typography>
 				<Typography variant='body2'>{moment(post.createAt).fromNow()}</Typography>
