@@ -18,6 +18,8 @@ npm start
 * moment: for showing time and date in UI
 * react-file-base64: for converting images to string
 * @material-ui: for styling and icons
+* @material-ui/lab: for page pagination
+* @material-ui-chip-input
 * jwt-decode: creating authentication
 * react-google-login: create google account authentication
 * react-router-dom: adding new screens and flows to the app
