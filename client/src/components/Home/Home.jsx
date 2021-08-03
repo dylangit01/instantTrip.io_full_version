@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Grow, Container, Grid, Button } from '@material-ui/core';
+import { Grow, Container, Grid, Button, Paper } from '@material-ui/core';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import SearchBar from '../SearchBar/SearchBar';
+import Pagination from '../Pagination/Pagination';
 import useStyles from './styles';
 
 // Use redux
@@ -38,8 +39,9 @@ const Home = () => {
 			<Container>
 				<Grid container justifyContent='space-between' alignItems='stretch' spacing={6}>
 					<Grid item xs={12} sm={5}>
-						<SearchBar setSearchField={setSearchField} />
-
+						<Paper className={classes.searchBar} elevation={6}>
+							<SearchBar setSearchField={setSearchField} />
+						</Paper>
 						<Button
 							className={classes.postShowBtn}
 							variant={showAddPost ? 'outlined' : 'contained'}
@@ -48,11 +50,14 @@ const Home = () => {
 							fullWidth
 							onClick={() => setShowAddPost(!showAddPost)}
 						>
-							{showAddPost ? 'Close' : <>{postID ? 'Updating' : 'Adding'} a Post</>} 
+							{showAddPost ? 'Close' : <>{postID ? 'Updating' : 'Adding'} a Post</>}
 						</Button>
-						{(showAddPost || postID)  && <Form />}
+						{(showAddPost || postID) && <Form />}
 					</Grid>
 					<Grid item xs={12} sm={7}>
+						<Paper className={classes.pagination} elevation={6}>
+							<Pagination />
+						</Paper>
 						<Posts searchedPosts={searchedPosts} />
 					</Grid>
 				</Grid>
