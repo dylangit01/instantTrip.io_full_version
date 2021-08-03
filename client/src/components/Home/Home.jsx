@@ -6,6 +6,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import Pagination from '../Pagination/Pagination';
 import useStyles from './styles';
 import { useHistory, useLocation } from 'react-router-dom';
+import ChipInput from 'material-ui-chip-input';
 
 // Use redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -56,6 +57,7 @@ const Home = () => {
 		}
 	};
 
+	// For search tags using ChipInput
 	const handleAdd = tag => setTags([...tags, tag])
 	const handleDelete = tagToDelete => setTags(tags.filter(tag => tag !== tagToDelete));
 
@@ -82,11 +84,10 @@ const Home = () => {
 							/>
 
 							{/* Todo: install material-ui-chip-input */}
-							<TextField
+							<ChipInput
 								style={{ marginTop: '10px' }}
 								variant='outlined'
 								label='Search Tags'
-								fullWidth
 								value={tags}
 								onAdd={handleAdd}
 								onDelete={handleDelete}
