@@ -7,13 +7,12 @@ import useStyles from './styles';
 
 // Use redux
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts } from '../../redux/actions/posts';
+import { getPosts, getPostsBySearch } from '../../redux/actions/posts';
 
 // For pagination feature & search feature
 import Pagination from '../Pagination/Pagination';
 import { useHistory, useLocation } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
-import { getPostsBySearch } from '../../redux/actions/posts';
 
 // Create below function to know which page we are currently on, and what search term we are looking for
 const useQuery = () => {
@@ -57,8 +56,7 @@ const Home = () => {
 	const searchPost = () => {
 		if (searchTerm.trim()) {
 			// dispatch -> fetch search post
-			const searchTermTrimmed = searchTerm.trim()
-			dispatch(getPostsBySearch(searchTermTrimmed));
+			dispatch(getPostsBySearch({ searchTerm, tags: tags.join(',') }));
 		} else {
 			// if empty input, then back to main page and do nothing
 			history.push('/')

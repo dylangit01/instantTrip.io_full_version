@@ -64,12 +64,12 @@ export const likePost = id => async (dispatch) => {
 	}
 }
 
-export const getPostsBySearch = (searchTerm) => async (dispatch) => {
+export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 	try {
-		const { data } = await api.searchPosts(searchTerm)
-		
+		const { data } = await api.searchPosts(searchQuery);
+		console.log(data);
 	} catch (error) {
-
+		console.log(error);
 	}
 };
 
