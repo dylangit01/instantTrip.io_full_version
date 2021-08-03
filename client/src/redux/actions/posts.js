@@ -65,6 +65,7 @@ export const likePost = id => async (dispatch) => {
 }
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
+	console.log(searchQuery);
 	try {
 		const { data } = await api.searchPosts(searchQuery);
 		console.log(data);

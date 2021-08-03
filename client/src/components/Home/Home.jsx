@@ -52,16 +52,16 @@ const Home = () => {
 		return combineSearch.toLowerCase().includes(searchField.toLowerCase());
 	});
 
-		// JSM Search function
+	// JSM Search function
 	const searchPost = () => {
 		if (searchTerm.trim()) {
-			// dispatch -> fetch search post
+			// dispatch -> search action with "searchTerm" & "tags array string"
 			dispatch(getPostsBySearch({ searchTerm, tags: tags.join(',') }));
 		} else {
 			// if empty input, then back to main page and do nothing
-			history.push('/')
+			history.push('/');
 		}
-	}
+	};
 
 	// JSM Search input
 	const handleKeyPress = (e) => {
@@ -71,8 +71,8 @@ const Home = () => {
 	};
 
 	// For search tags using ChipInput
-	const handleAdd = tag => setTags([...tags, tag])
-	const handleDelete = tagToDelete => setTags(tags.filter(tag => tag !== tagToDelete));
+	const handleAdd = (tag) => setTags([...tags, tag]);
+	const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete));
 
 	return (
 		<Grow in>
