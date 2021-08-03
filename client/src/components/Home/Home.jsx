@@ -3,14 +3,16 @@ import { Grow, Container, Grid, Button, Paper, AppBar, TextField } from '@materi
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import SearchBar from '../SearchBar/SearchBar';
-import Pagination from '../Pagination/Pagination';
 import useStyles from './styles';
-import { useHistory, useLocation } from 'react-router-dom';
-import ChipInput from 'material-ui-chip-input';
 
 // Use redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../../redux/actions/posts';
+
+// For pagination feature
+import Pagination from '../Pagination/Pagination';
+import { useHistory, useLocation } from 'react-router-dom';
+import ChipInput from 'material-ui-chip-input';
 
 // Create below function to know which page we are currently on, and what search term we are looking for
 const useQuery = () => {
@@ -19,7 +21,6 @@ const useQuery = () => {
 
 const Home = () => {
 	const classes = useStyles();
-
 	const dispatch = useDispatch();
 
 	// My search function
@@ -27,7 +28,7 @@ const Home = () => {
 	const [showAddPost, setShowAddPost] = useState(false);
 
 	// JSM search function
-	const [search, setSearch] = useState('');
+	const [searchTerm, setSearchTerm] = useState('');
 	const [tags, setTags] = useState([]);
 
 	const query = useQuery();
@@ -51,15 +52,26 @@ const Home = () => {
 		return combineSearch.toLowerCase().includes(searchField.toLowerCase());
 	});
 
-	// JSM Search function
+	// JSM Search input
 	const handleKeyPress = (e) => {
 		if (e.keyCode === 13) {
+			// todo:
 		}
 	};
 
 	// For search tags using ChipInput
 	const handleAdd = tag => setTags([...tags, tag])
 	const handleDelete = tagToDelete => setTags(tags.filter(tag => tag !== tagToDelete));
+
+	// JSM Search function
+	const searchPost = () => {
+		if (searchTerm.trim()) {
+			// dispatch -> fetch search post
+		} else {
+			// if empty input, then back to main page and do nothing
+			history.push('/')
+		}
+	}
 
 	return (
 		<Grow in>
@@ -78,12 +90,11 @@ const Home = () => {
 								variant='outlined'
 								label='Search Post'
 								fullWidth
-								value={search}
-								onChange={(e) => setSearch(e.target.value)}
+								value={searchTerm}
+								onChange={(e) => setSearchTerm(e.target.value)}
 								onKeyPress={handleKeyPress}
 							/>
 
-							{/* Todo: install material-ui-chip-input */}
 							<ChipInput
 								style={{ marginTop: '10px' }}
 								variant='outlined'
@@ -92,7 +103,9 @@ const Home = () => {
 								onAdd={handleAdd}
 								onDelete={handleDelete}
 							/>
-
+							<Button onClick={searchPost} className={classes.searchBtn} color='primary'>
+								Search
+							</Button>
 						</AppBar>
 
 						<Paper className={classes.searchBar} elevation={6}>
