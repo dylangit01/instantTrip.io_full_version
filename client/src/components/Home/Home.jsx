@@ -1,24 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { Grow, Container, Grid, Button, Paper } from '@material-ui/core';
+import { Grow, Container, Grid, Button, Paper, AppBar, TextField } from '@material-ui/core';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import SearchBar from '../SearchBar/SearchBar';
 import Pagination from '../Pagination/Pagination';
 import useStyles from './styles';
+import { useHistory, useLocation } from 'react-router-dom';
 
 // Use redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../../redux/actions/posts';
 
+// Create below function to know which page we are currently on, and what search term we are looking for
+const useQuery = () => {
+	return new URLSearchParams(useLocation().search)
+}
+
 const Home = () => {
 	const classes = useStyles();
 
-	// using useDispatch hook to trigger an action
 	const dispatch = useDispatch();
 
 	const [searchField, setSearchField] = useState('');
 
 	const [showAddPost, setShowAddPost] = useState(false);
+
+	const query = useQuery();
+	const history = useHistory();
+
+	// This is going to read the url and see if we have a page parameter in there, if we dont have that page, it much be on page 1
+	const page = query.get('page') || 1;
+	const searchQuery = query.get('searchQuery')
 
 	// Using dispatch in useEffect to dispatch an action to get the posts data, don't forget the "()" for getPosts
 	useEffect(() => {
@@ -36,9 +48,21 @@ const Home = () => {
 
 	return (
 		<Grow in>
-			<Container>
-				<Grid container justifyContent='space-between' alignItems='stretch' spacing={6}>
-					<Grid item xs={12} sm={5}>
+			<Container maxWidth='xl'>
+				<Grid className={classes.gridContainer} container justifyContent='space-between' alignItems='stretch' spacing={6}>
+					<Grid item xs={12} sm={6} md={4}>
+
+					<AppBar className={classes.appBarSearch} position='static' color='inherit'>
+							<TextField
+								name='search'
+								variant='outlined'
+								label='Search Post'
+								fullWidth
+								value='TEST'
+								onChange={() => {}}
+							/>
+					</AppBar>
+
 						<Paper className={classes.searchBar} elevation={6}>
 							<SearchBar setSearchField={setSearchField} />
 						</Paper>
@@ -54,7 +78,7 @@ const Home = () => {
 						</Button>
 						{(showAddPost || postID) && <Form />}
 					</Grid>
-					<Grid item xs={12} sm={7}>
+					<Grid item xs={12} sm={6} md={8}>
 						<Paper className={classes.pagination} elevation={6}>
 							<Pagination />
 						</Paper>

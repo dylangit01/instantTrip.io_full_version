@@ -11,6 +11,7 @@ import useStyles from './AppStyles'
 const App = () => {
 	const classes = useStyles();
 	const user = JSON.parse(localStorage.getItem('profile'))
+	
 	return (
 		<BrowserRouter>
 			<div className={classes.mainContainer}>
@@ -24,7 +25,7 @@ const App = () => {
 
 						{/* If user logged in already, then path "/auth" will be redirected to "/posts" */}
 						<Route path='/auth' exact component={() => (!user ? <Auth /> : <Redirect to='/posts' />)} />
-						
+
 					</Switch>
 				</Container>
 				<Footer />
