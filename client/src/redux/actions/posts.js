@@ -1,12 +1,15 @@
 // Import all methods as api from api folder
 import * as api from '../../api';
 
-// For posts
+// For CURD posts
 export const FETCH_ALL = 'FETCH_ALL';
 export const CREATE_POST = 'CREATE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const LIKE_POST = 'LIKE_POST';
+
+// For search posts
+export const SEARCH_POST = 'SEARCH_POST'
 
 // For post ID
 export const GET_ID = 'GET_ID';
@@ -36,7 +39,6 @@ export const createPost = (newPost) => async(dispatch) => {
 export const updatePost = (id, updatedPost) => async (dispatch) => {
 	try {
 		const { data } = await api.updatePost(id, updatedPost);
-		console.log({data});
 		dispatch({type: UPDATE_POST, payload: data})
 	} catch (error) {
 		console.log(error);
@@ -61,6 +63,15 @@ export const likePost = id => async (dispatch) => {
 		console.log(error);
 	}
 }
+
+export const getPostsBySearch = (searchTerm) => async (dispatch) => {
+	try {
+		const { data } = await api.searchPosts(searchTerm)
+		
+	} catch (error) {
+
+	}
+};
 
 
 export const getCurrentId = (id) => async (dispatch) => {

@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
 		margin: '30px 0',
 		display: 'flex',
 		flexDirection: 'row',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
 		alignItems: 'center',
 		height: '80px',
 		overflow: 'hidden',
@@ -18,6 +18,7 @@ export default makeStyles((theme) => ({
 	},
 	heading: {
 		fontWeight: 'bold',
+		textDecoration: 'none',
 		color: 'rgba(222,144,255, 1)',
 		'@media (max-width:1040px)': {
 			height: '50px',
@@ -28,7 +29,6 @@ export default makeStyles((theme) => ({
 		'@media (max-width:650px)': {
 			fontSize: '30px',
 		},
-		textDecoration: 'none',
 	},
 	image: {
 		marginLeft: '30px',
@@ -59,8 +59,6 @@ export default makeStyles((theme) => ({
 	brandContainer: {
 		display: 'flex',
 		alignItems: 'center',
-		justifyContent: 'flex-end',
-		width: '100%',
 	},
 	purple: {
 		color: theme.palette.getContrastText(deepPurple[500]),

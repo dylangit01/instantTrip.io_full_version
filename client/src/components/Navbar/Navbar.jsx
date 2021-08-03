@@ -102,11 +102,13 @@ const Navbar = () => {
 			{mobileView ? (
 				<DisplayMobile />
 			) : (
-				<div className={classes.brandContainer}>
-					<Typography component={Link} to='/' className={classes.heading} variant='h2' align='center'>
-						Instant Trip
-					</Typography>
-					<img className={classes.image} src={trips} alt='trips' height='80' />
+				<>
+					<div className={classes.brandContainer}>
+						<Typography component={Link} to='/' className={classes.heading} variant='h2' align='center'>
+							Instant Trip
+						</Typography>
+						<img className={classes.image} src={trips} alt='trips' height='80' />
+					</div>
 					<Toolbar className={classes.toolbar}>
 						{user ? (
 							<div className={classes.profile}>
@@ -118,7 +120,7 @@ const Navbar = () => {
 							</Button>
 						)}
 					</Toolbar>
-				</div>
+				</>
 			)}
 		</AppBar>
 	);

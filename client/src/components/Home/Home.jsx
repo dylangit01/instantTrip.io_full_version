@@ -9,10 +9,11 @@ import useStyles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPosts } from '../../redux/actions/posts';
 
-// For pagination feature
+// For pagination feature & search feature
 import Pagination from '../Pagination/Pagination';
 import { useHistory, useLocation } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
+import { getPostsBySearch } from '../../redux/actions/posts';
 
 // Create below function to know which page we are currently on, and what search term we are looking for
 const useQuery = () => {
@@ -52,26 +53,28 @@ const Home = () => {
 		return combineSearch.toLowerCase().includes(searchField.toLowerCase());
 	});
 
+		// JSM Search function
+	const searchPost = () => {
+		if (searchTerm.trim()) {
+			// dispatch -> fetch search post
+			const searchTermTrimmed = searchTerm.trim()
+			dispatch(getPostsBySearch(searchTermTrimmed));
+		} else {
+			// if empty input, then back to main page and do nothing
+			history.push('/')
+		}
+	}
+
 	// JSM Search input
 	const handleKeyPress = (e) => {
 		if (e.keyCode === 13) {
-			// todo:
+			searchPost();
 		}
 	};
 
 	// For search tags using ChipInput
 	const handleAdd = tag => setTags([...tags, tag])
 	const handleDelete = tagToDelete => setTags(tags.filter(tag => tag !== tagToDelete));
-
-	// JSM Search function
-	const searchPost = () => {
-		if (searchTerm.trim()) {
-			// dispatch -> fetch search post
-		} else {
-			// if empty input, then back to main page and do nothing
-			history.push('/')
-		}
-	}
 
 	return (
 		<Grow in>
@@ -96,14 +99,14 @@ const Home = () => {
 							/>
 
 							<ChipInput
-								style={{ marginTop: '10px' }}
+								style={{ margin: '10px 0' }}
 								variant='outlined'
 								label='Search Tags'
 								value={tags}
 								onAdd={handleAdd}
 								onDelete={handleDelete}
 							/>
-							<Button onClick={searchPost} className={classes.searchBtn} color='primary'>
+							<Button onClick={searchPost} className={classes.searchBtn} variant='contained' color='primary'>
 								Search
 							</Button>
 						</AppBar>
