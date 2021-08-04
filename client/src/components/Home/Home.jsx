@@ -39,7 +39,6 @@ const Home = () => {
 	const page = query.get('page') || 1;
 	const searchQuery = query.get('searchQuery');
 
-	// // Using dispatch in useEffect to dispatch an action to get the posts data, don't forget the "()" for getPosts
 	// useEffect(() => {
 	// 	dispatch(getPosts());
 	// }, [dispatch]);
@@ -48,23 +47,16 @@ const Home = () => {
 	const { posts } = useSelector((state) => state.posts);
 	const postID = useSelector((state) => state.postID);
 
-	// My Search function
-
-	// if (posts) {
-	// 	const searchedPosts = posts.filter((post) => {
-	// 	const combineSearch = `${post.creator} ${post.title} ${post.tags} ${post.description} ${post.name}`;
-	// 	return combineSearch.toLowerCase().includes(searchField.toLowerCase());
-	// });
-	// }
-
+	// My Search function cannot compatible with pagination
+	// const allPosts = useSelector((state) => state.allPosts);
 	useEffect(() => {
 		if (posts) {
 			setSearchedPosts(
-			posts.filter((post) => {
-				const combineSearch = `${post.creator} ${post.title} ${post.tags} ${post.description} ${post.name}`;
-				return combineSearch.toLowerCase().includes(searchField.toLowerCase());
-			})
-		);
+				posts.filter((post) => {
+					const combineSearch = `${post.creator}${post.title}${post.tags}${post.description}${post.name}`;
+					return combineSearch.toLowerCase().includes(searchField.toLowerCase());
+				})
+			);
 		}
 	}, [posts, searchField]);
 

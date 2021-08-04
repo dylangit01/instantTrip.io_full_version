@@ -13,9 +13,12 @@ export const getPosts = async (req, res) => {
 
 		// In order to get the posts from the newest to the oldest one by using sort id: ".sort({_id: -1})", and limit the find results as per LIMIT, also it needs to skip the previous posts for only showing current page posts by using skip
 		const posts = await PostModel.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+
+		// Below logic is only for frontend dynamic search
+		const allPosts = await PostModel.find().sort({_id: -1});
 		
 		// The data sent back to frontend is an object
-		res.status(200).json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
+		res.status(200).json({ data: posts, allPosts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}

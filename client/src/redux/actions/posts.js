@@ -24,8 +24,6 @@ export const CLEAR_ID = 'CLEAR_ID';
 // 	}
 // }
 
-// Since we setup the pagination, we only want to fetch the posts for the specific page:
-
 export const getPosts = (page) => async (dispatch) => {
 	try {
 		const { data } = await api.fetchPosts(page);
