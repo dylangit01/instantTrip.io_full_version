@@ -72,6 +72,7 @@ const Home = () => {
 			// if empty input, then back to main page and do nothing
 			history.push('/');
 		}
+		clearSearchInput();
 	};
 
 	// JSM Search input
@@ -79,6 +80,11 @@ const Home = () => {
 		if (e.keyCode === 13) {
 			searchPost();
 		}
+	};
+
+	const clearSearchInput = () => {
+		setSearchTerm('');
+		setTags([]);
 	};
 
 	// For search tags using ChipInput
@@ -104,7 +110,7 @@ const Home = () => {
 								fullWidth
 								value={searchTerm}
 								onChange={(e) => setSearchTerm(e.target.value)}
-								onKeyPress={handleKeyPress}
+								onKeyDown={handleKeyPress}
 							/>
 
 							<ChipInput
@@ -121,7 +127,7 @@ const Home = () => {
 						</AppBar>
 
 						<Paper className={classes.searchBar} elevation={6}>
-							<SearchBar setSearchField={setSearchField} />
+							<SearchBar setSearchField={setSearchField} placeholder='Dynamic live search' />
 						</Paper>
 						<Button
 							className={classes.postShowBtn}
@@ -136,7 +142,6 @@ const Home = () => {
 						{(showAddPost || postID) && <Form />}
 					</Grid>
 					<Grid item xs={12} sm={7} md={9}>
-
 						{!searchQuery && (
 							<Paper className={classes.pagination} elevation={6}>
 								<Pagination page={page} />

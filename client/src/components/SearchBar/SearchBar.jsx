@@ -6,7 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 // import { useDispatch } from 'react-redux';
 // import { searchPost } from '../../redux/actions/posts';
 
-const SearchBar = ({ setSearchField }) => {
+const SearchBar = ({ setSearchField, placeholder }) => {
 	const classes = useStyles();
 	// const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ const SearchBar = ({ setSearchField }) => {
 			<Input
 				// value={searchValue}
 				onChange={(e) => setSearchField(e.target.value)}
-				placeholder='Search Post'
+				placeholder={placeholder}
 				startAdornment={
 					<InputAdornment position='start'>
 						<SearchIcon />
