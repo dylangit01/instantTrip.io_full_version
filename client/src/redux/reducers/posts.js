@@ -7,6 +7,7 @@ const posts = (state = {posts: []}, action) => {
 			return {
 				...state,
 				posts: action.payload.data,
+				allPosts: action.payload.allPosts,
 				currentPage: action.payload.currentPage,
 				numberOfPages: action.payload.numberOfPages,
 			};

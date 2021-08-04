@@ -9,9 +9,9 @@ const Posts = ({ searchedPosts }) => {
 	const classes = useStyles();
 
 	// Using useSelector hook to get the posts from global state
-	const allPosts = useSelector((state) => state.allPosts);
+	const {allPosts} = useSelector((state) => state.posts);
 
-	return !allPosts.length ? (
+	return !allPosts?.length ? (
 		<div className={classes.circularProcess}>
 			<CircularProgress />
 		</div>

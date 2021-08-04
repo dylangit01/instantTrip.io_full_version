@@ -48,7 +48,7 @@ const Home = () => {
 	const postID = useSelector((state) => state.postID);
 
 	// My Search function cannot compatible with pagination
-	// const allPosts = useSelector((state) => state.allPosts);
+	// const {allPosts} = useSelector((state) => state.posts);
 	useEffect(() => {
 		if (posts) {
 			setSearchedPosts(
