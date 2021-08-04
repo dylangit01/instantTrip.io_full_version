@@ -38,19 +38,21 @@ const Home = () => {
 	const page = query.get('page') || 1;
 	const searchQuery = query.get('searchQuery');
 
-	// Using dispatch in useEffect to dispatch an action to get the posts data, don't forget the "()" for getPosts
-	useEffect(() => {
-		dispatch(getPosts());
-	}, [dispatch]);
+	// // Using dispatch in useEffect to dispatch an action to get the posts data, don't forget the "()" for getPosts
+	// useEffect(() => {
+	// 	dispatch(getPosts());
+	// }, [dispatch]);
 
-	const posts = useSelector((state) => state.posts);
+	// After adding other new data such as numberOfPages and so on, the posts becomes the property of the state, so we need to destruct it
+	const { posts } = useSelector((state) => console.log(state));
+	console.log(posts);
 	const postID = useSelector((state) => state.postID);
 
 	// My Search function
-	const searchedPosts = posts.filter((post) => {
-		const combineSearch = `${post.creator} ${post.title} ${post.tags} ${post.description} ${post.name}`;
-		return combineSearch.toLowerCase().includes(searchField.toLowerCase());
-	});
+	// const searchedPosts = posts.filter((post) => {
+	// 	const combineSearch = `${post.creator} ${post.title} ${post.tags} ${post.description} ${post.name}`;
+	// 	return combineSearch.toLowerCase().includes(searchField.toLowerCase());
+	// });
 
 	// JSM Search function
 	const searchPost = () => {

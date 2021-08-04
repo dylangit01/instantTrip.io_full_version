@@ -29,7 +29,8 @@ export const CLEAR_ID = 'CLEAR_ID';
 export const getPosts = (page) => async (dispatch) => {
 	try {
 		const { data } = await api.fetchPosts(page);
-		dispatch({ type: FETCH_ALL, payload: data.data });
+		console.log(data);
+		dispatch({ type: FETCH_ALL, payload: data });
 	} catch (error) {
 		console.log(error);
 	}
