@@ -21,7 +21,7 @@ const Form = () => {
 	const postID = useSelector((state) => state.postID);
 
 	// If current postID exists, then find the current post with that ID:
-	const post = useSelector((state) => postID && state.posts.find((post) => post._id === postID));
+	const post = useSelector((state) => postID && state.posts.posts.find((post) => post._id === postID));
 
 	// Since add user authentication, we can grab the user from the localStorage:
 	const user = JSON.parse(localStorage.getItem('profile'));

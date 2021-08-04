@@ -15,6 +15,10 @@ export const SEARCH_POST = 'SEARCH_POST'
 export const GET_ID = 'GET_ID';
 export const CLEAR_ID = 'CLEAR_ID';
 
+// For Loading
+export const START_LOADING = 'START_LOADING';
+export const END_LOADING = 'END_LOADING'
+
 // export const getPosts = () => async(dispatch) => {
 // 	try {
 // 		const { data } = await api.fetchPosts();
@@ -26,8 +30,10 @@ export const CLEAR_ID = 'CLEAR_ID';
 
 export const getPosts = (page) => async (dispatch) => {
 	try {
+		dispatch({type: START_LOADING})
 		const { data } = await api.fetchPosts(page);
 		dispatch({ type: FETCH_ALL, payload: data });
+		dispatch({type: END_LOADING})
 	} catch (error) {
 		console.log(error);
 	}
@@ -35,8 +41,10 @@ export const getPosts = (page) => async (dispatch) => {
 
 export const createPost = (newPost) => async(dispatch) => {
 	try {
+		dispatch({ type: START_LOADING });
 		const { data } = await api.createPost(newPost);
 		dispatch({ type: CREATE_POST, payload: data });
+		dispatch({ type: END_LOADING });
 	} catch (error) {
 		console.log(error);
 	}
@@ -72,8 +80,10 @@ export const likePost = id => async (dispatch) => {
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 	try {
+		dispatch({ type: START_LOADING });
 		const { data } = await api.searchPosts(searchQuery);
-		dispatch({type: SEARCH_POST, payload: data})
+		dispatch({ type: SEARCH_POST, payload: data })
+		dispatch({type: END_LOADING})
 	} catch (error) {
 		console.log(error);
 	}
