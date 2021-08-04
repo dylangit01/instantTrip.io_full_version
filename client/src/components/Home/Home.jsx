@@ -81,14 +81,8 @@ const Home = () => {
 	return (
 		<Grow in>
 			<Container maxWidth='xl'>
-				<Grid
-					className={classes.gridContainer}
-					container
-					justifyContent='space-between'
-					alignItems='stretch'
-					spacing={6}
-				>
-					<Grid item xs={12} sm={6} md={4}>
+				<Grid className={classes.gridContainer} container justifyContent='space-between' alignItems='stretch' spacing={6} >
+					<Grid item xs={12} sm={5} md={3}>
 						<AppBar className={classes.appBarSearch} position='static' color='inherit'>
 							<TextField
 								name='search'
@@ -128,7 +122,7 @@ const Home = () => {
 						</Button>
 						{(showAddPost || postID) && <Form />}
 					</Grid>
-					<Grid item xs={12} sm={6} md={8}>
+					<Grid item xs={12} sm={7} md={9}>
 						<Paper className={classes.pagination} elevation={6}>
 							<Pagination />
 						</Paper>

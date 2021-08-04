@@ -12,7 +12,8 @@ export default makeStyles((theme) => ({
 		height: '80px',
 		overflow: 'hidden',
 		padding: '5px 50px',
-		'@media (max-width: 900px)': {
+		'@media (max-width: 1045px)': {
+			justifyContent: 'space-around',
 			paddingLeft: '10px',
 		},
 	},
@@ -39,8 +40,8 @@ export default makeStyles((theme) => ({
 		display: 'flex',
 		justifyContent: 'flex-end',
 		width: '300px',
-		'@media (max-width:1040px)': {
-			width: '150px',
+		[theme.breakpoints.down('sm')]: {
+			width: 'auto',
 		},
 	},
 	profile: {
@@ -48,8 +49,8 @@ export default makeStyles((theme) => ({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		width: '300px',
-		'@media (max-width:800px)': {
-			width: '150px',
+		'@media (max-width:1040px)': {
+			// width: '80px',
 		},
 	},
 	userName: {

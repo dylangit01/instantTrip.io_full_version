@@ -36,7 +36,7 @@ const Post = ({ post }) => {
 
 	const { _id, title, name, description, tags, selectedFile } = post;
 	return (
-		<Card className={classes.card} elevation={6}>
+		<Card className={classes.card} raised elevation={6}>
 			<CardMedia
 				className={classes.media}
 				image={
