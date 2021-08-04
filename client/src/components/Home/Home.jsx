@@ -25,6 +25,7 @@ const Home = () => {
 
 	// My search function
 	const [searchField, setSearchField] = useState('');
+	const [searchedPosts, setSearchedPosts] = useState([]);
 	const [showAddPost, setShowAddPost] = useState(false);
 
 	// JSM search function
@@ -44,25 +45,37 @@ const Home = () => {
 	// }, [dispatch]);
 
 	// After adding other new data such as numberOfPages and so on, the posts becomes the property of the state, so we need to destruct it
-	const { posts } = useSelector((state) => console.log(state));
-	console.log(posts);
+	const { posts } = useSelector((state) => state.posts);
 	const postID = useSelector((state) => state.postID);
 
 	// My Search function
-	// const searchedPosts = posts.filter((post) => {
+
+	// if (posts) {
+	// 	const searchedPosts = posts.filter((post) => {
 	// 	const combineSearch = `${post.creator} ${post.title} ${post.tags} ${post.description} ${post.name}`;
 	// 	return combineSearch.toLowerCase().includes(searchField.toLowerCase());
 	// });
+	// }
+
+	useEffect(() => {
+		if (posts) {
+			setSearchedPosts(
+			posts.filter((post) => {
+				const combineSearch = `${post.creator} ${post.title} ${post.tags} ${post.description} ${post.name}`;
+				return combineSearch.toLowerCase().includes(searchField.toLowerCase());
+			})
+		);
+		}
+	}, [posts, searchField]);
 
 	// JSM Search function
 	const searchPost = () => {
 		if (searchTerm.trim() !== '' || tags.length > 0) {
-			console.log({searchTerm}, {tags});
 			// dispatch -> search action with "searchTerm" & "tags array string"
 			dispatch(getPostsBySearch({ searchTerm, tags: tags.join(',') }));
 
 			// After input searchTerm, using history push method to push website to a specific URL:
-			history.push(`/posts/search?searchQuery=${searchTerm || 'none'}&tags=${tags.join(',')}`)
+			history.push(`/posts/search?searchQuery=${searchTerm || 'none'}&tags=${tags.join(',')}`);
 		} else {
 			// if empty input, then back to main page and do nothing
 			history.push('/');
@@ -83,7 +96,13 @@ const Home = () => {
 	return (
 		<Grow in>
 			<Container maxWidth='xl'>
-				<Grid className={classes.gridContainer} container justifyContent='space-between' alignItems='stretch' spacing={6} >
+				<Grid
+					className={classes.gridContainer}
+					container
+					justifyContent='space-between'
+					alignItems='stretch'
+					spacing={6}
+				>
 					<Grid item xs={12} sm={5} md={3}>
 						<AppBar className={classes.appBarSearch} position='static' color='inherit'>
 							<TextField

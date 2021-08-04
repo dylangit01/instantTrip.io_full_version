@@ -9,9 +9,9 @@ const Posts = ({ searchedPosts }) => {
 	const classes = useStyles();
 
 	// Using useSelector hook to get the posts from global state
-	const posts = useSelector((state) => state.posts);
+	const {posts} = useSelector((state) => state.posts);
 
-	return !posts.length ? (
+	return !posts ? (
 		<div className={classes.circularProcess}>
 			<CircularProgress />
 		</div>
@@ -19,7 +19,7 @@ const Posts = ({ searchedPosts }) => {
 		<>
 			{searchedPosts.length ? (
 				<Grid className={classes.container} container alignItems='stretch' spacing={3}>
-					{[...searchedPosts].reverse().map((post) => (
+					{[...searchedPosts].map((post) => (
 						<Grid key={post._id} item xs={12} sm={12} md={6} lg={4}>
 							{/* Here _id follows MongoDB id format */}
 							<Post post={post} />

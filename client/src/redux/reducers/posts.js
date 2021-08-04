@@ -2,7 +2,7 @@ import { FETCH_ALL, CREATE_POST, UPDATE_POST, DELETE_POST, LIKE_POST, SEARCH_POS
 
 
 	// It's very difficult to find typo error in reducers: action.payload not "action.post"
-const posts = (state = [], action) => {
+const posts = (state = {post: []}, action) => {
 	switch (action.type) {
 		case FETCH_ALL:
 			return {

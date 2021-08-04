@@ -13,7 +13,7 @@ const Paginate = ({ page }) => {
 	// We only want to fetch the posts for the specific page
 	useEffect(() => {
 		if(page) dispatch(getPosts(page))
-	}, [page]);
+	}, [page, dispatch]);
 
 	return (
 		<Pagination
