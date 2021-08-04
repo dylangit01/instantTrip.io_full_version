@@ -124,6 +124,16 @@ const Home = () => {
 							<Button onClick={searchPost} className={classes.searchBtn} variant='contained' color='primary'>
 								Search
 							</Button>
+							<Button
+								variant='outlined'
+								color='secondary'
+								size='small'
+								type='submit'
+								fullWidth
+								onClick={() => history.push('/')}
+							>
+								Back
+							</Button>
 						</AppBar>
 
 						<Paper className={classes.searchBar} elevation={6}>
@@ -147,7 +157,6 @@ const Home = () => {
 								<Pagination page={page} />
 							</Paper>
 						)}
-
 						<Posts searchedPosts={searchedPosts} />
 					</Grid>
 				</Grid>
