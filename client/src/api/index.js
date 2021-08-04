@@ -10,20 +10,17 @@ import axios from 'axios';
 // export const deletePost = (id) => axios.delete(`${endpoint}/${id}`);
 // export const likePost = (id) => axios.patch(`${endpoint}/${id}/like`);
 
-
-
-
 // In order to use some advanced axios feature, modify above codes to below:
 const API = axios.create({ baseURL: 'http://localhost:5000' });
 
 // After user is logged in, the first thing is to pass the "req.header.authorization" to the backend authMiddleware to get the token, without this step, the middleware cannot verify the user, so the user cannot do related actions. And this toke is a "Bearer" token, is it starts with it.
 
-API.interceptors.request.use(req => {
+API.interceptors.request.use((req) => {
 	if (localStorage.getItem('profile')) {
 		req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
 	}
 	return req;
-})
+});
 
 export const fetchPosts = () => API.get('/posts');
 export const createPost = (newPost) => API.post('/posts', newPost);
@@ -35,4 +32,5 @@ export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 
 // Send search queries to the backend and fetch searched results, notice "searchQuery" is an object comes from Home.jsx, so the property name must be matched, in this case it's searchTerm
-export const searchPosts = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.searchTerm || 'none'}&tags=${searchQuery.tags}`);
+export const searchPosts = (searchQuery) =>
+	API.get(`/posts/search?searchQuery=${searchQuery.searchTerm || 'none'}&tags=${searchQuery.tags}`);

@@ -5,6 +5,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 // used to store the users in a browser in a safe way
 
+const secret = 'test';
+
 export const signIn = async (req, res) => {
 	const { email, password } = req.body;
 	try {
@@ -14,7 +16,7 @@ export const signIn = async (req, res) => {
 		if (!isPasswordCorrect) return res.status(400).json({ message: 'Invalid credentials' });
 
 		// If user exists and correct password, create the token, 'test' is the secret string which usually put in a separate env file, so nobody can see.
-		const token = jwt.sign({ email: existUser.email, id: existUser._id }, 'test', { expiresIn: '1h' });
+		const token = jwt.sign({ email: existUser.email, id: existUser._id }, secret, { expiresIn: '1h' });
 
 		res.status(200).json({ result: existUser, token });
 	} catch (error) {
@@ -34,9 +36,11 @@ export const signUp = async (req, res) => {
 		const hashedPassword = await bcrypt.hash(password, 12);
 
 		const result = await UserModel.create({ email, password: hashedPassword, name: `${firstName} ${lastName}` });
-		const token = jwt.sign({ email: result.email, id: result._id }, 'text', { expiresIn: '1h' });
+		const token = jwt.sign({ email: result.email, id: result._id }, secret, { expiresIn: '1h' });
+		
 		res.status(201).json({ result, token });
 	} catch (error) {
 		res.status(500).json({ message: 'Something went wrong.' });
+		console.log(error);
 	}
 };

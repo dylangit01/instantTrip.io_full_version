@@ -19,22 +19,22 @@ const Navbar = () => {
 
 	const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
-	useEffect(() => {
-		// verify if the token expired:
-		const token = user?.token;
-		if (token) {
-			const decodedToken = decode(token);
-			if (decodedToken * 1000 < new Date().getTime()) logout();
-		}
-		setUser(JSON.parse(localStorage.getItem('profile')));
-		// eslint-disable-next-line
-	}, [location]);
-
 	const logout = () => {
 		dispatch({ type: LOGOUT });
 		history.push('/');
 		setUser(null);
 	};
+
+	useEffect(() => {
+		// verify if the token expired:
+		const token = user?.token;
+		if (token) {
+			const decodedToken = decode(token);
+			if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+		}
+		setUser(JSON.parse(localStorage.getItem('profile')));
+		// eslint-disable-next-line
+	}, [location]);
 
 	// Avoid DRY
 	const AvatarAndBtn = () => (

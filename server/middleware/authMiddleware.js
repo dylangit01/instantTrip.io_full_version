@@ -4,33 +4,35 @@
 
 import jwt from 'jsonwebtoken';
 
+const secret = 'test';
+
 const authMiddleware = async (req, res, next) => {
 	try {
-		// console.log(req.headers.authorization);
-		if (!req.headers.authorization) {
-			console.log('no authorization passed to authMiddleware');
-		};
-		const token = req.headers.authorization.split(' ')[1];
+		console.log(req.headers.authorization);
+		// if (!req.headers.authorization) {
+		// 	console.log('no authorization passed to authMiddleware');
+		// };
+		const token = req.headers.authorization.split(" ")[1];
 		const isCustomAuthToken = token.length < 500;
 		// another token is the Google OAuth Token
 
 		let decodedData;
 		if (token && isCustomAuthToken) {
-			decodedData = jwt.verify(token, 'test');
+			decodedData = jwt.verify(token, secret);
 			// here the 'test' is the secret string that has been setup in userController;
 
 			// When user is logged in, system knows which user is logged in and done some actions, the system is going to store the user's id.
-			req.userId = decodedData.id;
+			req.userId = decodedData?.id;
 		} else {
 			// For Google token using decode, and we don't need the secret string
 			decodedData = jwt.decode(token);
-			req.userId = decodedData.sub;
+			req.userId = decodedData?.sub;
 			// sub === googleId, which is a specific google id that differentiates every single google user
 		}
 		// Passing userId to other file to use:
 		next();
 	} catch (error) {
-		console.log(error);
+		console.log(error, 'here is the error');
 	}
 };
 

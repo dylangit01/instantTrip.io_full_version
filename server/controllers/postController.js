@@ -12,15 +12,17 @@ export const getPosts = async (req, res) => {
 };
 
 export const getPostsBySearch = async (req, res) => {
-	const { searchQuery, tags } = req.query;
+	const { searchQuery, tags, } = req.query;
+
 	try {
 		// 'i' means ignore the case, so whenever the searchQuery is: Test, test, TEST -> test;
 		const title = new RegExp(searchQuery, 'i');
+		const name = new RegExp(searchQuery, 'i');
 
 		// Find all posts that match one of those two criteria ($or), the first one is the title, which is the same as we typed it on the frontend, and the second one is finding one of the tags in the array ($in) of tags, if that case, we want to display those posts:
-		const posts = await PostModel.find({ $or: [{ title }, { tags: { $in: tags.split(',') } }] });
-		
-		res.json({data: posts})
+		const posts = await PostModel.find({ $or: [{ title }, {name}, { tags: { $in: tags.split(',') } }] });
+
+		res.status(200).json(posts)
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}

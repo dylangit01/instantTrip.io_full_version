@@ -54,9 +54,13 @@ const Home = () => {
 
 	// JSM Search function
 	const searchPost = () => {
-		if (searchTerm.trim()) {
+		if (searchTerm.trim() !== '' || tags.length > 0) {
+			console.log({searchTerm}, {tags});
 			// dispatch -> search action with "searchTerm" & "tags array string"
 			dispatch(getPostsBySearch({ searchTerm, tags: tags.join(',') }));
+
+			// After input searchTerm, using history push method to push website to a specific URL:
+			history.push(`/posts/search?searchQuery=${searchTerm || 'none'}&tags=${tags.join(',')}`)
 		} else {
 			// if empty input, then back to main page and do nothing
 			history.push('/');
