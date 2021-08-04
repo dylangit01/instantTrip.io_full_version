@@ -1,7 +1,7 @@
 import React from 'react';
-import Post from '../Post/Post'
+import Post from '../Post/Post';
 import useStyles from './styles';
-import { Grid, CircularProgress, } from '@material-ui/core'
+import { Grid, CircularProgress } from '@material-ui/core';
 
 import { useSelector } from 'react-redux';
 
@@ -19,7 +19,8 @@ const Posts = ({ searchedPosts }) => {
 		<>
 			{searchedPosts.length ? (
 				<Grid className={classes.container} container alignItems='stretch' spacing={3}>
-					{[...searchedPosts].reverse().map((post) => (
+					{/* reverse() was removed since the order is handled by server side */}
+					{[...searchedPosts].map((post) => (
 						<Grid key={post._id} item xs={12} sm={12} md={6} lg={4}>
 							{/* Here _id follows MongoDB id format */}
 							<Post post={post} />
@@ -33,4 +34,4 @@ const Posts = ({ searchedPosts }) => {
 	);
 };
 
-export default Posts
+export default Posts;
