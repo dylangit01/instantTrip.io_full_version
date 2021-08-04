@@ -72,7 +72,7 @@ const Form = () => {
 
 	if (!user?.result?.name) {
 		return (
-			<Paper className={classes.paper}>
+			<Paper className={classes.paper} elevation={6}>
 				<Typography variant='h6' align='center'>
 					Please Sign In to create your own events and like other's posts.
 				</Typography>
@@ -82,7 +82,7 @@ const Form = () => {
 
 	const { title, description, tags } = formData;
 	return (
-		<Paper className={classes.paper}>
+		<Paper className={classes.paper} elevation={6}>
 			<form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
 				<Typography variant='h6'>{postID ? 'Editing' : 'Creating'} a Trip</Typography>
 
