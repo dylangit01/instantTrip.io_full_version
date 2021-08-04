@@ -136,9 +136,13 @@ const Home = () => {
 						{(showAddPost || postID) && <Form />}
 					</Grid>
 					<Grid item xs={12} sm={7} md={9}>
-						<Paper className={classes.pagination} elevation={6}>
-							<Pagination page={page} />
-						</Paper>
+
+						{!searchQuery && (
+							<Paper className={classes.pagination} elevation={6}>
+								<Pagination page={page} />
+							</Paper>
+						)}
+
 						<Posts searchedPosts={searchedPosts} />
 					</Grid>
 				</Grid>

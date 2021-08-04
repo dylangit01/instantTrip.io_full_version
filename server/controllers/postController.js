@@ -6,7 +6,7 @@ export const getPosts = async (req, res) => {
 	// even page at frontend is a number, but result of query will be converted to string
 	const { page } = req.query;
 	try {
-		const LIMIT = 8;
+		const LIMIT = 6;
 		// get the starting index of every page, "-1" means not include the current page
 		const startIndex = (Number(page) - 1) * LIMIT;
 		const total = await PostModel.countDocuments({}); // Find all posts in database
@@ -30,10 +30,10 @@ export const getPostsBySearch = async (req, res) => {
 	try {
 		// 'i' means ignore the case, so whenever the searchQuery is: Test, test, TEST -> test;
 		const title = new RegExp(searchQuery, 'i');
-		const name = new RegExp(searchQuery, 'i');
+		const description = new RegExp(searchQuery, 'i');
 
 		// Find all posts that match one of those two criteria ($or), the first one is the title, which is the same as we typed it on the frontend, and the second one is finding one of the tags in the array ($in) of tags, if that case, we want to display those posts:
-		const posts = await PostModel.find({ $or: [{ title }, { name }, { tags: { $in: tags.split(',') } }] });
+		const posts = await PostModel.find({ $or: [{ title }, { description }, { tags: { $in: tags.split(',') } }] });
 
 		res.status(200).json(posts);
 	} catch (error) {

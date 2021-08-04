@@ -9,9 +9,12 @@ const Posts = ({ searchedPosts }) => {
 	const classes = useStyles();
 
 	// Using useSelector hook to get the posts from global state
-	const {allPosts} = useSelector((state) => state.posts);
+	const { posts, isLoading } = useSelector((state) => state.posts);
 
-	return !allPosts?.length ? (
+	// If no posts in the database, and after dispatch({ type: END_LOADING }), which the isLoading is false, meaning no post exists:
+	if (!posts.length && !isLoading) return <h1 className={classes.noResult}>No posts found</h1>;
+
+	return isLoading ? (
 		<div className={classes.circularProcess}>
 			<CircularProgress />
 		</div>
