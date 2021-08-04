@@ -2,10 +2,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
 	postShowBtn: {
-		marginBottom: '20px',
+		marginBottom: '10px',
 	},
 	searchBar: {
-		marginBottom: '20px',
+		// marginBottom: '20px',
 	},
 	searchBtn: {
 		marginBottom: '10px',
@@ -15,13 +15,13 @@ export default makeStyles((theme) => ({
 	},
 	appBarSearch: {
 		borderRadius: 4,
-		marginBottom: '1rem',
+		margin: '.7rem 0 1rem',
 		display: 'flex',
 		padding: '16px',
 	},
 	gridContainer: {
 		[theme.breakpoints.down('xs')]: {
-			flexDirection: 'column-reverse',
+			flexDirection: 'column',
 		},
 	},
 }));

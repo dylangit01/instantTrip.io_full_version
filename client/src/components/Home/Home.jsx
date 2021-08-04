@@ -102,6 +102,18 @@ const Home = () => {
 					spacing={6}
 				>
 					<Grid item xs={12} sm={5} md={3}>
+						<Button
+							className={classes.postShowBtn}
+							variant={showAddPost ? 'outlined' : 'contained'}
+							color={showAddPost ? 'secondary' : 'primary'}
+							size='large'
+							fullWidth
+							onClick={() => setShowAddPost(!showAddPost)}
+						>
+							{showAddPost ? 'Close' : <>{postID ? 'Updating' : 'Adding'} a Post</>}
+						</Button>
+						{(showAddPost || postID) && <Form />}
+
 						<AppBar className={classes.appBarSearch} position='static' color='inherit'>
 							<TextField
 								name='search'
@@ -136,21 +148,11 @@ const Home = () => {
 							</Button>
 						</AppBar>
 
-						<Paper className={classes.searchBar} elevation={6}>
+						<Paper elevation={6}>
 							<SearchBar setSearchField={setSearchField} placeholder='Dynamic live search' />
 						</Paper>
-						<Button
-							className={classes.postShowBtn}
-							variant={showAddPost ? 'outlined' : 'contained'}
-							color={showAddPost ? 'secondary' : 'primary'}
-							size='large'
-							fullWidth
-							onClick={() => setShowAddPost(!showAddPost)}
-						>
-							{showAddPost ? 'Close' : <>{postID ? 'Updating' : 'Adding'} a Post</>}
-						</Button>
-						{(showAddPost || postID) && <Form />}
 					</Grid>
+
 					<Grid item xs={12} sm={7} md={9}>
 						{!searchQuery && (
 							<Paper className={classes.pagination} elevation={6}>
