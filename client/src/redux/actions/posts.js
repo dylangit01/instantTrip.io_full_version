@@ -15,14 +15,26 @@ export const SEARCH_POST = 'SEARCH_POST'
 export const GET_ID = 'GET_ID';
 export const CLEAR_ID = 'CLEAR_ID';
 
-export const getPosts = () => async(dispatch) => {
+// export const getPosts = () => async(dispatch) => {
+// 	try {
+// 		const { data } = await api.fetchPosts();
+// 		dispatch({type: FETCH_ALL, payload: data})
+// 	} catch (error) {
+// 		console.log(error);
+// 	}
+// }
+
+// Since we setup the pagination, we only want to fetch the posts for the specific page:
+
+export const getPosts = (page) => async (dispatch) => {
 	try {
-		const { data } = await api.fetchPosts();
-		dispatch({type: FETCH_ALL, payload: data})
+		const { data } = await api.fetchPosts(page);
+		dispatch({ type: FETCH_ALL, payload: data });
 	} catch (error) {
 		console.log(error);
 	}
-}
+};
+
 
 export const createPost = (newPost) => async(dispatch) => {
 	try {

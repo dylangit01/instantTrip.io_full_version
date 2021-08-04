@@ -1,18 +1,28 @@
 import PostModel from '../models/postModel.js';
 import mongoose from 'mongoose';
 
+// getPosts based on specific page number:
 export const getPosts = async (req, res) => {
-	// Finding post info takes time, so using asynchronous method (async/await) to deal with it
+	// even page at frontend is a number, but result of query will be converted to string
+	const { page } = req.query;
 	try {
-		const postMessages = await PostModel.find();
-		res.status(200).json(postMessages);
+		const LIMIT = 8;
+		// get the starting index of every page, "-1" means not include the current page
+		const startIndex = (Number(page) - 1) * LIMIT;
+		const total = await PostModel.countDocuments({}); // Find all posts in database
+
+		// In order to get the posts from the newest to the oldest one by using sort id: ".sort({_id: -1})", and limit the find results as per LIMIT, also it needs to skip the previous posts for only showing current page posts by using skip
+		const posts = await PostModel.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+
+		// The data sent back to frontend is an object
+		res.status(200).json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
 };
 
 export const getPostsBySearch = async (req, res) => {
-	const { searchQuery, tags, } = req.query;
+	const { searchQuery, tags } = req.query;
 
 	try {
 		// 'i' means ignore the case, so whenever the searchQuery is: Test, test, TEST -> test;
@@ -20,9 +30,9 @@ export const getPostsBySearch = async (req, res) => {
 		const name = new RegExp(searchQuery, 'i');
 
 		// Find all posts that match one of those two criteria ($or), the first one is the title, which is the same as we typed it on the frontend, and the second one is finding one of the tags in the array ($in) of tags, if that case, we want to display those posts:
-		const posts = await PostModel.find({ $or: [{ title }, {name}, { tags: { $in: tags.split(',') } }] });
+		const posts = await PostModel.find({ $or: [{ title }, { name }, { tags: { $in: tags.split(',') } }] });
 
-		res.status(200).json(posts)
+		res.status(200).json(posts);
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
