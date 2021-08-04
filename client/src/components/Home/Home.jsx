@@ -7,7 +7,7 @@ import useStyles from './styles';
 
 // Use redux
 import { useDispatch, useSelector } from 'react-redux';
-import { getPosts, getPostsBySearch } from '../../redux/actions/posts';
+import { getPostsBySearch } from '../../redux/actions/posts';
 
 // For pagination feature & search feature
 import Pagination from '../Pagination/Pagination';

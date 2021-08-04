@@ -9,15 +9,15 @@ const Posts = ({ searchedPosts }) => {
 	const classes = useStyles();
 
 	// Using useSelector hook to get the posts from global state
-	const {posts} = useSelector((state) => state.posts);
+	const allPosts = useSelector((state) => state.allPosts);
 
-	return !posts ? (
+	return !allPosts.length ? (
 		<div className={classes.circularProcess}>
 			<CircularProgress />
 		</div>
 	) : (
 		<>
-			{searchedPosts.length ? (
+			{searchedPosts.length > 0 ? (
 				<Grid className={classes.container} container alignItems='stretch' spacing={3}>
 					{[...searchedPosts].map((post) => (
 						<Grid key={post._id} item xs={12} sm={12} md={6} lg={4}>
