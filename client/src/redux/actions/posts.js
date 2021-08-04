@@ -15,12 +15,9 @@ export const SEARCH_POST = 'SEARCH_POST'
 export const GET_ID = 'GET_ID';
 export const CLEAR_ID = 'CLEAR_ID';
 
-// Create an action to fetch the data
 export const getPosts = () => async(dispatch) => {
 	try {
 		const { data } = await api.fetchPosts();
-		// const action = { type: FETCH_ALL, payload: [] };
-		// dispatch(action);
 		dispatch({type: FETCH_ALL, payload: data})
 	} catch (error) {
 		console.log(error);

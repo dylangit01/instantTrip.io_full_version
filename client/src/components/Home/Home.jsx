@@ -124,7 +124,7 @@ const Home = () => {
 					</Grid>
 					<Grid item xs={12} sm={7} md={9}>
 						<Paper className={classes.pagination} elevation={6}>
-							<Pagination />
+							<Pagination page={page} />
 						</Paper>
 						<Posts searchedPosts={searchedPosts} />
 					</Grid>
