@@ -1,1 +1,0 @@
-CONNECTION_URL = mongodb+srv://Dylan:<password>@instanttrip.xjfwo.mongodb.net/InstantTrip?retryWrites=true&w=majority
