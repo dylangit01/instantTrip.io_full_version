@@ -112,6 +112,7 @@ export const commentPost = (comment, id) => async (dispatch) => {
 	try {
 		const { data } = await api.commentToPost(comment, id);
 		dispatch({ type: COMMENT_POST, payload: data });
+		// Below return is useful when we need the return value after we call the dispatch right away:
 		return data.comments;
 	} catch (error) {
 		console.log(error);

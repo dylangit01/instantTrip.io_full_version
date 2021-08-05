@@ -3,7 +3,7 @@ import { Typography, TextField, Button } from '@material-ui/core/';
 import useStyles from './styles';
 
 import { commentPost } from '../../redux/actions/posts';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const CommentSection = ({ post }) => {
 	const classes = useStyles();
@@ -13,9 +13,10 @@ const CommentSection = ({ post }) => {
 
 	const user = JSON.parse(localStorage.getItem('profile'));
 
-	const handleInputComment = () => {
+	const handleInputComment = async () => {
 		const finalComment = `${user?.result?.name}: ${comment}`;
-		dispatch(commentPost(finalComment, post._id));
+		const newComments = await dispatch(commentPost(finalComment, post._id));
+		setComments(newComments)
 	};
 
 	return (
