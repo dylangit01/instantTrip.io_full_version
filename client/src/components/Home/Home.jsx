@@ -128,7 +128,7 @@ const Home = () => {
 							<ChipInput
 								style={{ margin: '10px 0' }}
 								variant='outlined'
-								label='Search Tags'
+								label='Search Tags (press enter)'
 								value={tags}
 								onAdd={handleAdd}
 								onDelete={handleDelete}
