@@ -86,8 +86,8 @@ const Post = ({ post }) => {
 				</Button>
 
 				{(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-					<Button size='small' color='primary' onClick={() => dispatch(deletePost(_id))}>
-						<Delete fontSize='small' /> &nbsp; Delete
+					<Button size='small' color='secondary' onClick={() => dispatch(deletePost(_id))}>
+						<Delete fontSize='small' color='secondary' /> Delete
 					</Button>
 				)}
 			</CardActions>
