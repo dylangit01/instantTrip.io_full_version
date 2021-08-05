@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import useStyles from './styles';
 import moment from 'moment';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, ButtonBase } from '@material-ui/core';
@@ -6,19 +6,36 @@ import { ThumbUpAlt, Delete, MoreHoriz, ThumbUpAltOutlined } from '@material-ui/
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { getCurrentId, deletePost, likePost } from '../../redux/actions/posts';
+
 const Post = ({ post }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const [likes, setLikes] = useState(post?.likes)
 
 	const user = JSON.parse(localStorage.getItem('profile'));
+
+	// likes are the user ids in a post object:
+	const userId = user?.result?.googleId || user?.result?._id;
+	const hasLikedPost = post.likes.find((like) => like === userId);
+
+	const handleLike = async () => {
+		dispatch(likePost(post._id));
+
+		// if a post has likes, if a user click it again, meaning the user doesn't like this post:
+		if (hasLikedPost) {
+			setLikes(post.likes.filter((id) => id !== userId));
+		} else {
+			setLikes([...post.likes, userId])
+		}
+	}
 
 	const openPost = () => history.push(`/posts/${post._id}`);
 
 	const Likes = () => {
-		const likesLength = post.likes.length;
+		const likesLength = likes.length;
 		if (likesLength > 0) {
-			return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id)) ? (
+			return likes.find((like) => like === userId) ? (
 				<>
 					<ThumbUpAlt fontSize='small' /> &nbsp; {likesLength >= 2 ? `${likesLength} likes` : `${likesLength} like`}
 				</>
@@ -57,10 +74,14 @@ const Post = ({ post }) => {
 				{/* creator is the req.userId passed from the backend when new post has been created */}
 				{(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
 					<div className={classes.overlay2}>
-						<Button style={{ color: 'white' }} size='small' onClick={(e) => {
-							e.stopPropagation();
-							dispatch(getCurrentId(_id))
-						}}>
+						<Button
+							style={{ color: 'white' }}
+							size='small'
+							onClick={(e) => {
+								e.stopPropagation();
+								dispatch(getCurrentId(_id));
+							}}
+						>
 							<MoreHoriz fontSize='medium' />
 						</Button>
 					</div>
@@ -81,7 +102,7 @@ const Post = ({ post }) => {
 				</CardContent>
 			</ButtonBase>
 			<CardActions className={classes.cardActions}>
-				<Button size='small' color='primary' disabled={!user?.result} onClick={() => dispatch(likePost(_id))}>
+				<Button size='small' color='primary' disabled={!user?.result} onClick={handleLike}>
 					<Likes />
 				</Button>
 
