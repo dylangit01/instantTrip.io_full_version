@@ -15,7 +15,7 @@ const PostDetails = () => {
 
 	useEffect(() => {
 		dispatch(getPost(id));
-	}, [id]);
+	}, [id, dispatch]);
 
 	// Below avoids the undefined error if the post is used before fetching
 	if (!post) return null;
