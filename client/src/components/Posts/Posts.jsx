@@ -14,6 +14,7 @@ const Posts = ({ searchedPosts }) => {
 	// If no posts in the database, and after dispatch({ type: END_LOADING }), which the isLoading is false, meaning no post exists:
 	if (!posts.length && !isLoading) return <h1 className={classes.noResult}>No posts found</h1>;
 
+	// As long as isLoading is true, the posts component will show the loading circularProgress:
 	return isLoading ? (
 		<div className={classes.circularProcess}>
 			<CircularProgress />

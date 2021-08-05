@@ -7,6 +7,7 @@ export const CREATE_POST = 'CREATE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const LIKE_POST = 'LIKE_POST';
+export const FETCH_SINGLE_POST = 'FETCH_SINGLE_POST';
 
 // For search posts
 export const SEARCH_POST = 'SEARCH_POST';
@@ -28,11 +29,24 @@ export const END_LOADING = 'END_LOADING';
 // 	}
 // }
 
+// For Loading process, as long as the START_LOADING is dispatched, the Posts.jsx will show the loading circular process until the END_LOADING is dispatched.
+
 export const getPosts = (page) => async (dispatch) => {
 	try {
 		dispatch({ type: START_LOADING });
 		const { data } = await api.fetchPosts(page);
 		dispatch({ type: FETCH_ALL, payload: data });
+		dispatch({ type: END_LOADING });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const getPost = (id) => async (dispatch) => {
+	try {
+		dispatch({ type: START_LOADING });
+		const { data } = await api.fetchPost(id);
+		dispatch({ type: FETCH_SINGLE_POST, payload: data });
 		dispatch({ type: END_LOADING });
 	} catch (error) {
 		console.log(error);
