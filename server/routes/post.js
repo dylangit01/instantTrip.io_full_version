@@ -1,5 +1,5 @@
 import express from 'express';
-import { getPosts, createPost, updatePost, deletePost, likePost, getPostsBySearch, } from '../controllers/postController.js';
+import { getPosts, getPost, createPost, updatePost, deletePost, likePost, getPostsBySearch, } from '../controllers/postController.js';
 
 import authMiddleware from '../middleware/authMiddleware.js';
 
@@ -13,6 +13,9 @@ router.patch('/:id', authMiddleware, updatePost);
 router.delete('/:id', authMiddleware, deletePost);
 router.patch('/:id/like', authMiddleware, likePost);
 
+// /search router has to be placed before getPost router, because "/:id" includes "/search", so if /:id at top, the search function will be no result as not searchQuery is the id
 router.get('/search', getPostsBySearch);
+
+router.get('/:id', getPost);
 
 export default router;
