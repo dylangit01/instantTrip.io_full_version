@@ -41,7 +41,7 @@ export const getPosts = (page) => async (dispatch) => {
 	}
 };
 
-export const getPost = id => async (dispatch) => {
+export const getPost = (id) => async (dispatch) => {
 	try {
 		dispatch({ type: START_LOADING });
 		const { data } = await api.fetchPost(id);
@@ -50,12 +50,17 @@ export const getPost = id => async (dispatch) => {
 	} catch (error) {
 		console.log(error);
 	}
-}
+};
 
-export const createPost = (newPost) => async (dispatch) => {
+
+export const createPost = (newPost, history) => async (dispatch) => {
 	try {
 		dispatch({ type: START_LOADING });
 		const { data } = await api.createPost(newPost);
+
+		// In order to redirect to newly created post details, we need to pass "history" as the second parameter and use it right after the data is fetched from the backend:
+		history.push(`/posts/${data._id}`);
+
 		dispatch({ type: CREATE_POST, payload: data });
 		dispatch({ type: END_LOADING });
 	} catch (error) {

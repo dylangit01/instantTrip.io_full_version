@@ -1,7 +1,7 @@
 import React from 'react';
-import Post from '../Post/Post'
+import Post from '../Post/Post';
 import useStyles from './styles';
-import { Grid, CircularProgress, } from '@material-ui/core'
+import { Grid, CircularProgress } from '@material-ui/core';
 
 import { useSelector } from 'react-redux';
 
@@ -37,4 +37,4 @@ const Posts = ({ searchedPosts }) => {
 	);
 };
 
-export default Posts
+export default Posts;

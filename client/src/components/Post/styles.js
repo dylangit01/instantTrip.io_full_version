@@ -54,7 +54,7 @@ export default makeStyles({
 		overflow: 'auto',
 	},
 	cardAction: {
-    display: 'block',
-    textAlign: 'initial',
-  },
+		display: 'block',
+		textAlign: 'initial',
+	},
 });

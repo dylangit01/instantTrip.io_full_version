@@ -4,10 +4,8 @@ import moment from 'moment';
 import { Card, CardActions, CardContent, CardMedia, Button, Typography, ButtonBase } from '@material-ui/core';
 import { ThumbUpAlt, Delete, MoreHoriz, ThumbUpAltOutlined } from '@material-ui/icons';
 import { useHistory } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
 import { getCurrentId, deletePost, likePost } from '../../redux/actions/posts';
-
 const Post = ({ post }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
@@ -15,10 +13,7 @@ const Post = ({ post }) => {
 
 	const user = JSON.parse(localStorage.getItem('profile'));
 
-	const openPost = () => {
-
-		history.push(`/posts/${post._id}`)
-	};
+	const openPost = () => history.push(`/posts/${post._id}`);
 
 	const Likes = () => {
 		const likesLength = post.likes.length;
@@ -91,8 +86,8 @@ const Post = ({ post }) => {
 				</Button>
 
 				{(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-					<Button size='small' color='primary' onClick={() => dispatch(deletePost(_id))}>
-						<Delete fontSize='small' /> &nbsp; Delete
+					<Button size='small' color='secondary' onClick={() => dispatch(deletePost(_id))}>
+						<Delete fontSize='small' color='secondary' /> Delete
 					</Button>
 				)}
 			</CardActions>

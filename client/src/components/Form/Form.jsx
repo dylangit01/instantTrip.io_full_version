@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useStyles from './styles';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64';
+import { useHistory } from 'react-router-dom';
 
 // Use redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +13,7 @@ const validateOnChange = true;
 
 const Form = () => {
 	const classes = useStyles();
+	const history = useHistory();
 
 	const [formData, setFormData] = useState(initialValue);
 	const [errors, setErrors] = useState({});
@@ -56,9 +58,12 @@ const Form = () => {
 
 		if (validate()) {
 			if (postID) {
+
+				// Since creator becomes the userId, in order to get the user name for the backend(mongoDB model requires the name), we can add it in an object as name: user.result.name
 				dispatch(updatePost(postID, { ...formData, name: user?.result?.name }));
 			} else {
-				dispatch(createPost({ ...formData, name: user?.result?.name }));
+				// In order to redirect to newly created post details, we need to pass "history" as the second parameter
+				dispatch(createPost({ ...formData, name: user?.result?.name }, history));
 			}
 			handleClear();
 		} else alert('Please fix below errors');

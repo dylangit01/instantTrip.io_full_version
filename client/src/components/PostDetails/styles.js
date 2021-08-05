@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
 	postPaper: {
@@ -36,12 +36,21 @@ export default makeStyles((theme) => ({
 			flexDirection: 'column',
 		},
 	},
+	recommendedPaper: {
+		padding: '10px',
+		borderRadius: '10px',
+		margin: '20px',
+		cursor: 'pointer',
+	},
+	recommendedImg: {
+		borderRadius: 5,
+	},
 	loadingPaper: {
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
 		padding: '20px',
-		borderRadius: '15px',
+		borderRadius: 10,
 		height: '39vh',
 	},
 }));
