@@ -9,17 +9,20 @@ const Posts = ({ searchedPosts }) => {
 	const classes = useStyles();
 
 	// Using useSelector hook to get the posts from global state
-	const posts = useSelector((state) => state.posts);
+	const { posts, isLoading } = useSelector((state) => state.posts);
 
-	return !posts.length ? (
+	// If no posts in the database, and after dispatch({ type: END_LOADING }), which the isLoading is false, meaning no post exists:
+	if (!posts.length && !isLoading) return <h1 className={classes.noResult}>No posts found</h1>;
+
+	// As long as isLoading is true, the posts component will show the loading circularProgress:
+	return isLoading ? (
 		<div className={classes.circularProcess}>
 			<CircularProgress />
 		</div>
 	) : (
 		<>
-			{searchedPosts.length ? (
+			{searchedPosts.length > 0 ? (
 				<Grid className={classes.container} container alignItems='stretch' spacing={3}>
-					{/* reverse() was removed since the order is handled by server side */}
 					{[...searchedPosts].map((post) => (
 						<Grid key={post._id} item xs={12} sm={12} md={6} lg={4}>
 							{/* Here _id follows MongoDB id format */}

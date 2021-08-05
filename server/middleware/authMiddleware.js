@@ -8,10 +8,7 @@ const secret = 'test';
 
 const authMiddleware = async (req, res, next) => {
 	try {
-		console.log(req.headers.authorization);
-		// if (!req.headers.authorization) {
-		// 	console.log('no authorization passed to authMiddleware');
-		// };
+		// console.log(req.headers.authorization);
 		const token = req.headers.authorization.split(" ")[1];
 		const isCustomAuthToken = token.length < 500;
 		// another token is the Google OAuth Token

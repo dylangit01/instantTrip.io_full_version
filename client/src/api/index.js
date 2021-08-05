@@ -11,7 +11,8 @@ import axios from 'axios';
 // export const likePost = (id) => axios.patch(`${endpoint}/${id}/like`);
 
 // In order to use some advanced axios feature, modify above codes to below:
-const API = axios.create({ baseURL: 'http://localhost:5000' });
+// const API = axios.create({ baseURL: 'http://localhost:5000' });
+const API = axios.create({ baseURL: 'https://instant-trip-full-verison.herokuapp.com' });
 
 // After user is logged in, the first thing is to pass the "req.header.authorization" to the backend authMiddleware to get the token, without this step, the middleware cannot verify the user, so the user cannot do related actions. And this toke is a "Bearer" token, is it starts with it.
 
@@ -24,6 +25,8 @@ API.interceptors.request.use((req) => {
 
 // export const fetchPosts = () => API.get('/posts');
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
+
+export const fetchPost = (id) => API.get(`/posts/${id}`);
 
 export const createPost = (newPost) => API.post('/posts', newPost);
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);

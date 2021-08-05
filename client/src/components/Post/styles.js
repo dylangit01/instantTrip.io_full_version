@@ -52,5 +52,9 @@ export default makeStyles({
 	descWidth: {
 		wordWrap: 'break-word',
 		overflow: 'auto',
-	}
+	},
+	cardAction: {
+		display: 'block',
+		textAlign: 'initial',
+	},
 });

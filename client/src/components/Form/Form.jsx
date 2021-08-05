@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useStyles from './styles';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import FileBase from 'react-file-base64';
+import { useHistory } from 'react-router-dom';
 
 // Use redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +13,7 @@ const validateOnChange = true;
 
 const Form = () => {
 	const classes = useStyles();
+	const history = useHistory();
 
 	const [formData, setFormData] = useState(initialValue);
 	const [errors, setErrors] = useState({});
@@ -21,7 +23,7 @@ const Form = () => {
 	const postID = useSelector((state) => state.postID);
 
 	// If current postID exists, then find the current post with that ID:
-	const post = useSelector((state) => postID && state.posts.find((post) => post._id === postID));
+	const post = useSelector((state) => postID && state.posts.posts.find((post) => post._id === postID));
 
 	// Since add user authentication, we can grab the user from the localStorage:
 	const user = JSON.parse(localStorage.getItem('profile'));
@@ -56,9 +58,12 @@ const Form = () => {
 
 		if (validate()) {
 			if (postID) {
+
+				// Since creator becomes the userId, in order to get the user name for the backend(mongoDB model requires the name), we can add it in an object as name: user.result.name
 				dispatch(updatePost(postID, { ...formData, name: user?.result?.name }));
 			} else {
-				dispatch(createPost({ ...formData, name: user?.result?.name }));
+				// In order to redirect to newly created post details, we need to pass "history" as the second parameter
+				dispatch(createPost({ ...formData, name: user?.result?.name }, history));
 			}
 			handleClear();
 		} else alert('Please fix below errors');
@@ -72,7 +77,7 @@ const Form = () => {
 
 	if (!user?.result?.name) {
 		return (
-			<Paper className={classes.paper}>
+			<Paper className={classes.paper} elevation={6}>
 				<Typography variant='h6' align='center'>
 					Please Sign In to create your own events and like other's posts.
 				</Typography>
@@ -82,7 +87,7 @@ const Form = () => {
 
 	const { title, description, tags } = formData;
 	return (
-		<Paper className={classes.paper}>
+		<Paper className={classes.paper} elevation={6}>
 			<form autoComplete='off' noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
 				<Typography variant='h6'>{postID ? 'Editing' : 'Creating'} a Trip</Typography>
 

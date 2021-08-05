@@ -1,12 +1,22 @@
 import PostModel from '../models/postModel.js';
 import mongoose from 'mongoose';
 
+export const getPost = async (req, res) => {
+	const { id } = req.params;
+	try {
+		const post = await PostModel.findById(id);
+		res.status(200).json(post);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
 // getPosts based on specific page number:
 export const getPosts = async (req, res) => {
 	// even page at frontend is a number, but result of query will be converted to string
 	const { page } = req.query;
 	try {
-		const LIMIT = 8;
+		const LIMIT = 6;
 		// get the starting index of every page, "-1" means not include the current page
 		const startIndex = (Number(page) - 1) * LIMIT;
 		const total = await PostModel.countDocuments({}); // Find all posts in database
@@ -14,8 +24,11 @@ export const getPosts = async (req, res) => {
 		// In order to get the posts from the newest to the oldest one by using sort id: ".sort({_id: -1})", and limit the find results as per LIMIT, also it needs to skip the previous posts for only showing current page posts by using skip
 		const posts = await PostModel.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
 
+		// Below logic is only for frontend dynamic search
+		const allPosts = await PostModel.find().sort({_id: -1});
+		
 		// The data sent back to frontend is an object
-		res.status(200).json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
+		res.status(200).json({ data: posts, allPosts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
 	} catch (error) {
 		res.status(404).json({ message: error.message });
 	}
@@ -27,10 +40,10 @@ export const getPostsBySearch = async (req, res) => {
 	try {
 		// 'i' means ignore the case, so whenever the searchQuery is: Test, test, TEST -> test;
 		const title = new RegExp(searchQuery, 'i');
-		const name = new RegExp(searchQuery, 'i');
+		const description = new RegExp(searchQuery, 'i');
 
 		// Find all posts that match one of those two criteria ($or), the first one is the title, which is the same as we typed it on the frontend, and the second one is finding one of the tags in the array ($in) of tags, if that case, we want to display those posts:
-		const posts = await PostModel.find({ $or: [{ title }, { name }, { tags: { $in: tags.split(',') } }] });
+		const posts = await PostModel.find({ $or: [{ title }, { description }, { tags: { $in: tags.split(',') } }] });
 
 		res.status(200).json(posts);
 	} catch (error) {
@@ -42,9 +55,7 @@ export const createPost = async (req, res) => {
 	const post = req.body;
 
 	// Need to convert body to mongoose data based on model first
-	// const newPost = PostModel(post);
-
-	// Since we add authentication for user, we also need to update newPost as below:
+	// Since we add authentication for user, we also need to update newPost as below, the userId is coming from authMiddleware
 	const newPost = PostModel({ ...post, creator: req.userId, createAt: new Date().toISOString() });
 
 	try {
