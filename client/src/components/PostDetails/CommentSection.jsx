@@ -10,13 +10,18 @@ const CommentSection = ({ post }) => {
 	const dispatch = useDispatch();
 	const [comments, setComments] = useState(post?.comments);
 	const [comment, setComment] = useState('');
+	const commentsRef = useRef()
 
 	const user = JSON.parse(localStorage.getItem('profile'));
 
 	const handleInputComment = async () => {
 		const finalComment = `${user?.result?.name}: ${comment}`;
 		const newComments = await dispatch(commentPost(finalComment, post._id));
-		setComments(newComments)
+		setComments(newComments);
+		setComment('');
+
+		// For auto-scroll down feature
+		commentsRef.current.scrollIntoView({ behavior: 'smooth'})
 	};
 
 	return (
@@ -31,6 +36,10 @@ const CommentSection = ({ post }) => {
 							{comm}
 						</Typography>
 					))}
+
+					{/* for auto scroll down feature */}
+					<div ref={commentsRef} />
+
 				</div>
 				{user?.result?.name && (
 					<div style={{ width: '70%' }}>
