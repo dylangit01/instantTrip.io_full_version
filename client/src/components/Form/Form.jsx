@@ -56,6 +56,7 @@ const Form = () => {
 
 		if (validate()) {
 			if (postID) {
+				// Since creator becomes the userId, in order to get the user name for the backend(mongoDB model requires the name), we can add it in an object as name: user.result.name
 				dispatch(updatePost(postID, { ...formData, name: user?.result?.name }));
 			} else {
 				dispatch(createPost({ ...formData, name: user?.result?.name }));
