@@ -3,6 +3,7 @@ import useStyles from './styles';
 import { Paper, Typography, CircularProgress, Divider } from '@material-ui/core/';
 import { useParams, useHistory } from 'react-router-dom';
 import moment from 'moment';
+import CommentSection from './CommentSection';
 
 import { getPost, getPostsBySearch } from '../../redux/actions/posts';
 import { useDispatch, useSelector } from 'react-redux';
@@ -51,9 +52,9 @@ const PostDetails = () => {
 					<Typography gutterBottom variant='body1' component='p'>{description}</Typography>
 					<Typography variant='body1' component='h2'> {moment(createAt).fromNow()} </Typography>
 					<Divider style={{ margin: '20px 0' }} />
-					<Typography variant='body1'> <strong> Realtime Chat - coming soon!</strong> </Typography>
+					<Typography variant='body1'> <strong> Todo: Realtime Chat Part</strong> </Typography>
 					<Divider style={{ margin: '20px 0' }} />
-					<Typography variant='body1'> <strong> Comments - coming soon!</strong> </Typography>
+					<CommentSection post = {post} />
 					<Divider style={{ margin: '20px 0' }} />
 				</div>
 				<div className={classes.imageSection}>
