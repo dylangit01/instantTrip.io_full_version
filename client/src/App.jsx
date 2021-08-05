@@ -22,7 +22,6 @@ const App = () => {
 						<Route path='/posts' exact component={Home} />
 						<Route path='/posts/search' exact component={Home} />
 						<Route path='/posts/:id' exact component={PostDetails} />
-						{/* If user logged in already, then path "/auth" will be redirected to "/posts" */}
 						<Route path='/auth' exact component={() => (!user ? <Auth /> : <Redirect to='/posts' />)} />
 					</Switch>
 				</Container>
