@@ -1,14 +1,24 @@
-# InstantTrip.io
-[InstantTrip.io](https://instant-trip.netlify.app/) is a simple social media app that allows users to post the places they have been and share with friends. Users can add name, tags and feedback, they also can like others posts. 
+# InstantTrip
+[InstantTrip](https://instanttrip-complete-version.netlify.app/) is a Full Stack MERN social media app that allows users to post the places they have been (or anything) and share with friends. App has completed authentication, title & tags search, dynamic live search, client-side routing and pagination features. Authorized users can create, update and delete posts. However, non-registered users can browse and search posts. 
 
-## MVP: https://instant-trip.netlify.app/
+## MVP: https://instanttrip-complete-version.netlify.app/
 
 ## Tech Stacks
-* Front-End: React, Redux(thunk), Hooks, Material-UI;
+* Front-End: React, Redux(thunk), React Hooks, Material-UI;
 * Back-End: NodeJS, express, MongoDB
 
-## Client Side Command
-npm start
+## Getting Started
+* Prerequisites
+	* Node 12.x
+	* Npm 7.x
+* Install node modules
+```
+yarn
+```
+* Starting front-end servers
+```
+yarn start
+```
 
 ## Client Side Dependencies
 * axios: for making API requests
@@ -30,23 +40,6 @@ npm start
 * images: for storing app images
 * redux: for implementing redux function
 
-## Import Redux
-* Import {Provider} from 'react-redux', which will keep track of the store 
-* Import {createStore, applyMiddleware, compose} form 'redux'
-* Import thunk from 'redux-thunk' to handle async actions
-* Import reducers
-
-## Redux Setup
-* store: is the global state and allows any component to access the store from anywhere inside of the app without prop-drilling
-* actions: a function to create object which has type and payload and return that action;(with using thunk, it will dispatch that action)
-* reducers: a function that specifies how the state will be changed in response to action type
-
-## Use Redux
-* Import {useDispatch} from 'react-redux' in component
-* const dispatch = useDispatch()
-* Use function to trigger an action, such as: Using 'useEffect' to initiate dispatching "getPosts" action, this action using api to fetch data and dispatch fetched data to reducer
-* Use {useSelector} from 'react-redux' to access global store to get any state object, such as "const posts = useSelector(state => state.posts)"
-
 ## Server Side Dependencies
 * bcryptjs: hash password
 * jsonwebtoken: building security account
@@ -67,6 +60,4 @@ npm start
 Using application connection string:
 mongoose.connect(process.env.CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
 
-## Multiple classes applied in element:
-className = {`${classes.xxx} ${classes.xxx}`}
 
