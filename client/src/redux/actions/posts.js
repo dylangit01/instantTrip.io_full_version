@@ -108,6 +108,14 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 	}
 };
 
+export const commentPost = (comment, id) => async (dispatch) => {
+	try {
+		 const {data} = await api.commentToPost(comment, id)
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 export const getCurrentId = (id) => async (dispatch) => {
 	try {
 		dispatch({ type: GET_ID, payload: id });

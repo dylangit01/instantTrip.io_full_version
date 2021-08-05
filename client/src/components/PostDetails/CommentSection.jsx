@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { Typography, TextField, Button } from '@material-ui/core/';
-import { useDispatch } from 'react-redux';
-
 import useStyles from './styles';
+
+import {commentPost} from '../../redux/actions/posts'
+import { useDispatch } from 'react-redux';
 
 const CommentSection = ({ post }) => {
 	const classes = useStyles();
