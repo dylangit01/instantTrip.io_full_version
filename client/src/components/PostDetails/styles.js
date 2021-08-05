@@ -53,4 +53,13 @@ export default makeStyles((theme) => ({
 		borderRadius: 10,
 		height: '39vh',
 	},
+	commentsOuterContainer: {
+		display: 'flex',
+		justifyContent: 'space-between',
+	},
+	commentsInnerContainer: {
+		height: '200px',
+		overflowY: 'auto',
+		marginRight: '30px',
+	},
 }));
