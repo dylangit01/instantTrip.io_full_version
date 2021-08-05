@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import useStyles from './styles';
 import { Paper, Typography, CircularProgress, Divider } from '@material-ui/core/';
-import { useParams, useHistory } from 'react-router';
+import { useParams, useHistory } from 'react-router-dom';
 import moment from 'moment';
 
 import { getPost } from '../../redux/actions/posts';
@@ -15,7 +15,7 @@ const PostDetails = () => {
 
 	useEffect(() => {
 		dispatch(getPost(id))
-	}, [id])
+	}, [id, dispatch])
 
 	// Below avoids the undefined error if the post is used before fetching
 	if (!post) return null;
