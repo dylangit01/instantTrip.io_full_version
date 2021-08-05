@@ -110,7 +110,8 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 
 export const commentPost = (comment, id) => async (dispatch) => {
 	try {
-		 const {data} = await api.commentToPost(comment, id)
+		const { data } = await api.commentToPost(comment, id);
+		
 	} catch (error) {
 		console.log(error);
 	}

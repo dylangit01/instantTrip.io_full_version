@@ -1,15 +1,5 @@
 import axios from 'axios';
 
-// "posts" must match with server router for posts, and NEVER PUT "/" after endpoint
-// const endpoint = 'http://localhost:5000/posts';
-// const endpoint = 'https://instant-trip-full-verison.herokuapp.com/posts';
-
-// export const fetchPosts = () => axios.get(endpoint);
-// export const createPost = (newPost) => axios.post(endpoint, newPost);
-// export const updatePost = (id, updatedPost) => axios.patch(`${endpoint}/${id}`, updatedPost);
-// export const deletePost = (id) => axios.delete(`${endpoint}/${id}`);
-// export const likePost = (id) => axios.patch(`${endpoint}/${id}/like`);
-
 // In order to use some advanced axios feature, modify above codes to below:
 // const API = axios.create({ baseURL: 'http://localhost:5000' });
 const API = axios.create({ baseURL: 'https://instant-trip-full-verison.herokuapp.com' });
@@ -40,5 +30,15 @@ export const signUp = (formData) => API.post('/user/signup', formData);
 export const searchPosts = (searchQuery) =>
 	API.get(`/posts/search?searchQuery=${searchQuery.searchTerm || 'none'}&tags=${searchQuery.tags}`);
 
-// Create the comment
-export const commentToPost = (comment, id) => API.post(`/posts/${id}/comment`, {comment})
+export const commentToPost = (comment, id) => API.post(`/posts/${id}/comment`, { comment })
+
+
+// Old version:
+// const endpoint = 'http://localhost:5000/posts';
+// const endpoint = 'https://instant-trip-full-verison.herokuapp.com/posts';
+
+// export const fetchPosts = () => axios.get(endpoint);
+// export const createPost = (newPost) => axios.post(endpoint, newPost);
+// export const updatePost = (id, updatedPost) => axios.patch(`${endpoint}/${id}`, updatedPost);
+// export const deletePost = (id) => axios.delete(`${endpoint}/${id}`);
+// export const likePost = (id) => axios.patch(`${endpoint}/${id}/like`);
