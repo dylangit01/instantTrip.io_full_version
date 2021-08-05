@@ -78,8 +78,8 @@ const Form = () => {
 	if (!user?.result?.name) {
 		return (
 			<Paper className={classes.paper} elevation={6}>
-				<Typography variant='h6' align='center'>
-					Please Sign In to create your own events and like other's posts.
+				<Typography variant='h6' align='center' color='textSecondary'>
+					Please Sign In to create your own posts and like other's posts.
 				</Typography>
 			</Paper>
 		);

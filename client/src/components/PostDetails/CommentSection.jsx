@@ -33,7 +33,9 @@ const CommentSection = ({ post }) => {
 					</Typography>
 					{comments?.map((comm, idx) => (
 						<Typography key={idx} gutterBottom variant='subtitle1'>
-							{comm}
+							<strong style={{fontWeight: 900}}>{comm.split(': ')[0]}</strong>:
+							{comm.split(':')[1]}
+							
 						</Typography>
 					))}
 
