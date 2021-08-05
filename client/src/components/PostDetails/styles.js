@@ -6,9 +6,9 @@ export default makeStyles((theme) => ({
 		borderRadius: '10px',
 	},
 	media: {
-		borderRadius: '20px',
+		borderRadius: '15px',
 		objectFit: 'cover',
-		width: '40vw',
+		width: '38vw',
 		maxHeight: '600px',
 	},
 	card: {

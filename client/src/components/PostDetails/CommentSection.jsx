@@ -7,8 +7,15 @@ import useStyles from './styles';
 const CommentSection = ({ post }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	const [comments, setComments] = useState([1, 2, 3, 4]);
+	const [comments, setComments] = useState([1, 2, 3, 4, 5]);
 	const [comment, setComment] = useState('')
+
+	const user = JSON.parse(localStorage.getItem('profile'))
+
+	const handleInputComment = () => {
+		const finalComment = `${user.result.name}: ${comment}`
+		dispatch(commentPost(finalComment, post._id));
+	}
 
 	return (
 		<div>
@@ -31,11 +38,21 @@ const CommentSection = ({ post }) => {
 						value={comment}
 						onChange={(e) => setComment(e.target.value)}
 						multiline
-						row={4}
+						rows={4}
 						fullWidth
 						variant='outlined'
 						label='Comment'
 					/>
+					<Button
+						style={{ marginTop: '10px' }}
+						fullWidth
+						disabled={!comment}
+						variant='contained'
+						color='primary'
+						onClick={handleInputComment}
+					>
+						Comment!
+					</Button>
 				</div>
 			</div>
 		</div>
