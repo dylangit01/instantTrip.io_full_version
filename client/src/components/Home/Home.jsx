@@ -62,7 +62,7 @@ const Home = () => {
 
 	// JSM Search function
 	const searchPost = () => {
-		if (searchTerm.trim() !== '' || tags.length > 0) {
+		if (searchTerm.trim() || tags) {
 			// dispatch -> search action with "searchTerm" & "tags array string"
 			dispatch(getPostsBySearch({ searchTerm, tags: tags.join(',') }));
 

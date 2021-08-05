@@ -1,6 +1,16 @@
 import PostModel from '../models/postModel.js';
 import mongoose from 'mongoose';
 
+export const getPost = async (req, res) => {
+	const { id } = req.params;
+	try {
+		const post = await PostModel.findById(id);
+		res.status(200).json(post);
+	} catch (error) {
+		res.status(404).json({ message: error.message });
+	}
+};
+
 // getPosts based on specific page number:
 export const getPosts = async (req, res) => {
 	// even page at frontend is a number, but result of query will be converted to string
@@ -15,8 +25,8 @@ export const getPosts = async (req, res) => {
 		const posts = await PostModel.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
 
 		// Below logic is only for frontend dynamic search
-		const allPosts = await PostModel.find().sort({_id: -1});
-		
+		const allPosts = await PostModel.find();
+
 		// The data sent back to frontend is an object
 		res.status(200).json({ data: posts, allPosts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
 	} catch (error) {
@@ -25,15 +35,14 @@ export const getPosts = async (req, res) => {
 };
 
 export const getPostsBySearch = async (req, res) => {
+	console.log('??????????????????????');
 	const { searchQuery, tags } = req.query;
-
 	try {
 		// 'i' means ignore the case, so whenever the searchQuery is: Test, test, TEST -> test;
 		const title = new RegExp(searchQuery, 'i');
-		const description = new RegExp(searchQuery, 'i');
 
 		// Find all posts that match one of those two criteria ($or), the first one is the title, which is the same as we typed it on the frontend, and the second one is finding one of the tags in the array ($in) of tags, if that case, we want to display those posts:
-		const posts = await PostModel.find({ $or: [{ title }, { description }, { tags: { $in: tags.split(',') } }] });
+		const posts = await PostModel.find({ $or: [{ title }, { tags: { $in: tags.split(',') } }] });
 
 		res.status(200).json(posts);
 	} catch (error) {

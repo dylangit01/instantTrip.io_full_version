@@ -15,7 +15,10 @@ const Post = ({ post }) => {
 
 	const user = JSON.parse(localStorage.getItem('profile'));
 
-	const openPost = () => history.push(`/posts/${post._id}`);
+	const openPost = () => {
+
+		history.push(`/posts/${post._id}`)
+	};
 
 	const Likes = () => {
 		const likesLength = post.likes.length;
@@ -41,7 +44,8 @@ const Post = ({ post }) => {
 	const { _id, title, name, description, tags, selectedFile } = post;
 	return (
 		<Card className={classes.card} raised elevation={6}>
-			<ButtonBase className={classes.cardAction} onClick={openPost}>
+			{/* In order to avoid the button cannot be inside of an button error, add "component='div'" */}
+			<ButtonBase component='div' className={classes.cardAction} onClick={openPost}>
 				<CardMedia
 					className={classes.media}
 					image={
@@ -58,7 +62,10 @@ const Post = ({ post }) => {
 				{/* creator is the req.userId passed from the backend when new post has been created */}
 				{(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
 					<div className={classes.overlay2}>
-						<Button style={{ color: 'white' }} size='small' onClick={() => dispatch(getCurrentId(_id))}>
+						<Button style={{ color: 'white' }} size='small' onClick={(e) => {
+							e.stopPropagation();
+							dispatch(getCurrentId(_id))
+						}}>
 							<MoreHoriz fontSize='medium' />
 						</Button>
 					</div>

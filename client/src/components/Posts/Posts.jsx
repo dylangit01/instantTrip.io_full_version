@@ -14,6 +14,7 @@ const Posts = ({ searchedPosts }) => {
 	// If no posts in the database, and after dispatch({ type: END_LOADING }), which the isLoading is false, meaning no post exists:
 	if (!posts.length && !isLoading) return <h1 className={classes.noResult}>No posts found</h1>;
 
+	// As long as isLoading is true, the posts component will show the loading circularProgress:
 	return isLoading ? (
 		<div className={classes.circularProcess}>
 			<CircularProgress />
@@ -21,7 +22,7 @@ const Posts = ({ searchedPosts }) => {
 	) : (
 		<>
 			{searchedPosts.length > 0 ? (
-				<Grid className={classes.container} container alignItems='stretch' spacing={3}>
+				<Grid className={classes.mainContainer} container alignItems='stretch' spacing={3}>
 					{[...searchedPosts].map((post) => (
 						<Grid key={post._id} item xs={12} sm={12} md={6} lg={4}>
 							{/* Here _id follows MongoDB id format */}

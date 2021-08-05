@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE_POST, UPDATE_POST, DELETE_POST, LIKE_POST, SEARCH_POST, START_LOADING, END_LOADING } from '../actions/posts';
+import { FETCH_ALL, CREATE_POST, UPDATE_POST, DELETE_POST, LIKE_POST, SEARCH_POST, START_LOADING, END_LOADING, FETCH_SINGLE_POST } from '../actions/posts';
 
 	// It's very difficult to find typo error in reducers: action.payload not "action.post"
 const posts = (state = {isLoading:true, posts: [] }, action) => {
@@ -15,6 +15,8 @@ const posts = (state = {isLoading:true, posts: [] }, action) => {
 				currentPage: action.payload.currentPage,
 				numberOfPages: action.payload.numberOfPages,
 			};
+		case FETCH_SINGLE_POST:
+			return { ...state, post: action.payload};
 		case SEARCH_POST:
 			return {...state, posts: action.payload};
 		case CREATE_POST:

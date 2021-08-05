@@ -25,6 +25,8 @@ API.interceptors.request.use((req) => {
 // export const fetchPosts = () => API.get('/posts');
 export const fetchPosts = (page) => API.get(`/posts?page=${page}`);
 
+export const fetchPost = (id) => API.get(`/posts/${id}`);
+
 export const createPost = (newPost) => API.post('/posts', newPost);
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);
@@ -34,5 +36,5 @@ export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 
 // Send search queries to the backend and fetch searched results, notice "searchQuery" is an object comes from Home.jsx, so the property name must be matched, in this case it's searchTerm
-export const searchPosts = (searchQuery) =>
-	API.get(`/posts/search?searchQuery=${searchQuery.searchTerm || 'none'}&tags=${searchQuery.tags}`);
+export const searchPosts = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.searchTerm || 'none'}&tags=${searchQuery.tags}`);
+

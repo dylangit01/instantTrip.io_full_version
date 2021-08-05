@@ -7,6 +7,7 @@ export const CREATE_POST = 'CREATE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const LIKE_POST = 'LIKE_POST';
+export const FETCH_SINGLE_POST = 'FETCH_SINGLE_POST';
 
 // For search posts
 export const SEARCH_POST = 'SEARCH_POST';
@@ -14,8 +15,7 @@ export const SEARCH_POST = 'SEARCH_POST';
 // For post ID
 export const GET_ID = 'GET_ID';
 export const CLEAR_ID = 'CLEAR_ID';
-
-// For Loading
+ 
 export const START_LOADING = 'START_LOADING';
 export const END_LOADING = 'END_LOADING';
 
@@ -28,6 +28,8 @@ export const END_LOADING = 'END_LOADING';
 // 	}
 // }
 
+// For Loading process, as long as the START_LOADING is dispatched, the Posts.jsx will show the loading circular process until the END_LOADING is dispatched.
+
 export const getPosts = (page) => async (dispatch) => {
 	try {
 		dispatch({ type: START_LOADING });
@@ -38,6 +40,17 @@ export const getPosts = (page) => async (dispatch) => {
 		console.log(error);
 	}
 };
+
+export const getPost = id => async (dispatch) => {
+	try {
+		dispatch({ type: START_LOADING });
+		const { data } = await api.fetchPost(id);
+		dispatch({ type: FETCH_SINGLE_POST, payload: data });
+		dispatch({ type: END_LOADING });
+	} catch (error) {
+		console.log(error);
+	}
+}
 
 export const createPost = (newPost) => async (dispatch) => {
 	try {
@@ -81,7 +94,9 @@ export const likePost = (id) => async (dispatch) => {
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 	try {
 		dispatch({ type: START_LOADING });
+		console.log('wowoworiririr');
 		const { data } = await api.searchPosts(searchQuery);
+		console.log(data);
 		dispatch({ type: SEARCH_POST, payload: data });
 		dispatch({ type: END_LOADING });
 	} catch (error) {
