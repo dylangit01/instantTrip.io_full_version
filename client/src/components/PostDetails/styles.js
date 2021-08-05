@@ -41,7 +41,7 @@ export default makeStyles((theme) => ({
 		justifyContent: 'center',
 		alignItems: 'center',
 		padding: '20px',
-		borderRadius: '15px',
+		borderRadius: 10,
 		height: '39vh',
 	},
 }));

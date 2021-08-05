@@ -17,7 +17,7 @@ const PostDetails = () => {
 		dispatch(getPost(id));
 	}, [id, dispatch]);
 
-	// Below avoids the undefined error if the post is used before fetching
+	// Below avoids the undefined error if the post is rendered before fetching
 	if (!post) return null;
 	if (isLoading) {
 		return (
