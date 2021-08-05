@@ -29,7 +29,7 @@ const Form = () => {
 	const user = JSON.parse(localStorage.getItem('profile'));
 
 	useEffect(() => {
-		if(post) setFormData(post)
+		if (post) setFormData(post)
 	}, [post])
 
 	const validate = (fieldValues = formData) => {
@@ -63,7 +63,7 @@ const Form = () => {
 				dispatch(updatePost(postID, { ...formData, name: user?.result?.name }));
 			} else {
 				// In order to redirect to newly created post details, we need to pass "history" as the second parameter
-				dispatch(createPost({ ...formData, name: user?.result?.name }, history));
+				dispatch(createPost({ ...formData, name: user?.result?.name }), history);
 			}
 			handleClear();
 		} else alert('Please fix below errors');

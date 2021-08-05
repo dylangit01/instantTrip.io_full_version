@@ -60,7 +60,7 @@ export const createPost = (newPost, history) => async (dispatch) => {
 		const { data } = await api.createPost(newPost);
 
 		// In order to redirect to newly created post details, we need to pass "history" as the second parameter and use it right after the data is fetched from the backend:
-		history.push(`/posts/${data._id}`);
+		// history.push(`/posts/${data._id}`);
 
 		dispatch({ type: CREATE_POST, payload: data });
 		dispatch({ type: END_LOADING });
