@@ -1,4 +1,7 @@
 # InstantTrip
+![](https://github.com/dylangit01/instantTrip.io_full_version/blob/main/client/src/images/app-image.png?raw=true)
+
+# Introduction
 [InstantTrip](https://instanttrip-complete-version.netlify.app/) is a Full Stack MERN social media app that allows users to post the places they have been (or anything) and share with friends. App has completed authentication, title & tags search, dynamic live search, client-side routing and pagination features. Authorized users can create, update and delete posts. However, non-registered users can browse and search posts. 
 
 ## MVP: https://instanttrip-complete-version.netlify.app/
