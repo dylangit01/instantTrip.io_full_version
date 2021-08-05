@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // In order to use some advanced axios feature, modify above codes to below:
-// const API = axios.create({ baseURL: 'http://localhost:5000' });
-const API = axios.create({ baseURL: 'https://instant-trip-full-verison.herokuapp.com' });
+const API = axios.create({ baseURL: 'http://localhost:5000' });
+// const API = axios.create({ baseURL: 'https://instant-trip-full-verison.herokuapp.com' });
 
 // After user is logged in, the first thing is to pass the "req.header.authorization" to the backend authMiddleware to get the token, without this step, the middleware cannot verify the user, so the user cannot do related actions. And this toke is a "Bearer" token, is it starts with it.
 
@@ -23,6 +23,8 @@ export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updated
 export const deletePost = (id) => API.delete(`/posts/${id}`);
 export const likePost = (id) => API.patch(`/posts/${id}/like`);
 
+export const commentToPost = (comment, id) => API.post(`/posts/${id}/comment`, {comment});
+
 export const signIn = (formData) => API.post('/user/signin', formData);
 export const signUp = (formData) => API.post('/user/signup', formData);
 
@@ -30,7 +32,7 @@ export const signUp = (formData) => API.post('/user/signup', formData);
 export const searchPosts = (searchQuery) =>
 	API.get(`/posts/search?searchQuery=${searchQuery.searchTerm || 'none'}&tags=${searchQuery.tags}`);
 
-export const commentToPost = (comment, id) => API.post(`/posts/${id}/comment`, { comment })
+
 
 
 // Old version:

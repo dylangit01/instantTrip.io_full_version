@@ -8,6 +8,7 @@ export const UPDATE_POST = 'UPDATE_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const LIKE_POST = 'LIKE_POST';
 export const FETCH_SINGLE_POST = 'FETCH_SINGLE_POST';
+export const COMMENT_POST = 'COMMENT_POST';
 
 // For search posts
 export const SEARCH_POST = 'SEARCH_POST';
@@ -52,7 +53,6 @@ export const getPost = (id) => async (dispatch) => {
 		console.log(error);
 	}
 };
-
 
 export const createPost = (newPost, history) => async (dispatch) => {
 	try {
@@ -111,11 +111,12 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 export const commentPost = (comment, id) => async (dispatch) => {
 	try {
 		const { data } = await api.commentToPost(comment, id);
-		
+		dispatch({ type: COMMENT_POST, payload: data });
+		return data.comments;
 	} catch (error) {
 		console.log(error);
 	}
-}
+};
 
 export const getCurrentId = (id) => async (dispatch) => {
 	try {

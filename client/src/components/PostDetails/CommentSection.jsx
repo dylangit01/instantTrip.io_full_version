@@ -8,13 +8,13 @@ import { useDispatch } from 'react-redux';
 const CommentSection = ({ post }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	const [comments, setComments] = useState([1, 2, 3, 4, 5]);
+	const [comments, setComments] = useState(post?.comments);
 	const [comment, setComment] = useState('');
 
 	const user = JSON.parse(localStorage.getItem('profile'));
 
 	const handleInputComment = () => {
-		const finalComment = `${user.result.name}: ${comment}`;
+		const finalComment = `${user?.result?.name}: ${comment}`;
 		dispatch(commentPost(finalComment, post._id));
 	};
 
@@ -25,9 +25,9 @@ const CommentSection = ({ post }) => {
 					<Typography gutterBottom variant='h6'>
 						Comments
 					</Typography>
-					{comments.map((comm, idx) => (
+					{comments?.map((comm, idx) => (
 						<Typography key={idx} gutterBottom variant='subtitle1'>
-							Comment {idx}
+							{comm}
 						</Typography>
 					))}
 				</div>
