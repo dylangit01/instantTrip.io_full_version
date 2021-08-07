@@ -12,7 +12,7 @@ const Paginate = ({ page }) => {
 
 	const { numberOfPages } = useSelector(state => state.posts);
 
-	// We only want to fetch the posts for the specific page
+	// It only fetches the posts for the specific page
 	useEffect(() => {
 		if (page) dispatch(getPosts(page));
 	}, [page, dispatch]);

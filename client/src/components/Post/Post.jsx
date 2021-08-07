@@ -56,7 +56,7 @@ const Post = ({ post }) => {
 	const { _id, title, name, description, tags, selectedFile } = post;
 	return (
 		<Card className={classes.card} raised elevation={6}>
-			{/* In order to avoid the button cannot be inside of an button error, add "component='div'" */}
+			{/* In order to avoid the 'button cannot be inside of an button error', add "component='div'" */}
 			<ButtonBase component='div' className={classes.cardAction} onClick={openPost}>
 				<CardMedia
 					className={classes.media}

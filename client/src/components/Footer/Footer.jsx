@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
-// import { Link } from 'react-router-dom';
 import useStyles from './styles';
 
 const Footer = () => {
@@ -18,4 +17,4 @@ const Footer = () => {
 export default Footer
 
 
-// In order to have the best footer styles, we also need to create position: relative in the closest container for the footer component. (In this case, it's the App.jsx)
+// In order to have the best footer styles, it also needs to create position: relative in the closest container for the footer component. (In this case, it's the App.jsx)

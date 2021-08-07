@@ -5,11 +5,10 @@ import Form from '../Form/Form';
 import SearchBar from '../SearchBar/SearchBar';
 import useStyles from './styles';
 
-// Use redux
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostsBySearch } from '../../redux/actions/posts';
 
-// For pagination feature & search feature
+// For pagination & server-side search feature
 import Pagination from '../Pagination/Pagination';
 import { useHistory, useLocation } from 'react-router-dom';
 import ChipInput from 'material-ui-chip-input';
@@ -22,11 +21,11 @@ const useQuery = () => {
 const Home = () => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
+	const [showAddPost, setShowAddPost] = useState(false);
 
 	// My search function
 	const [searchField, setSearchField] = useState('');
 	const [searchedPosts, setSearchedPosts] = useState([]);
-	const [showAddPost, setShowAddPost] = useState(false);
 
 	// JSM search function
 	const [searchTerm, setSearchTerm] = useState('');
@@ -35,7 +34,7 @@ const Home = () => {
 	const query = useQuery();
 	const history = useHistory();
 
-	// This is going to read the url and see if we have a page parameter in there, if we dont have that page, it much be on page 1
+	// This is going to read the url and see if we have a page parameter in there, if we don't have that page, it much be on page 1
 	const page = query.get('page') || 1;
 	const searchQuery = query.get('searchQuery');
 

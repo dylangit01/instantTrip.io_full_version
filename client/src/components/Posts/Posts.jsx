@@ -8,10 +8,9 @@ import { useSelector } from 'react-redux';
 const Posts = ({ searchedPosts }) => {
 	const classes = useStyles();
 
-	// Using useSelector hook to get the posts from global state
 	const { posts, isLoading } = useSelector((state) => state.posts);
 
-	// If no posts in the database, and after dispatch({ type: END_LOADING }), which the isLoading is false, meaning no post exists:
+	// If no posts in the database, and after dispatch({ type: END_LOADING }), meaning the isLoading is false, therefore showing no post found:
 	if (!posts.length && !isLoading) return <h1 className={classes.noResult}>No posts found</h1>;
 
 	// As long as isLoading is true, the posts component will show the loading circularProgress:
@@ -25,7 +24,6 @@ const Posts = ({ searchedPosts }) => {
 				<Grid className={classes.container} container alignItems='stretch' spacing={3}>
 					{[...searchedPosts].map((post) => (
 						<Grid key={post._id} item xs={12} sm={12} md={6} lg={4}>
-							{/* Here _id follows MongoDB id format */}
 							<Post post={post} />
 						</Grid>
 					))}
