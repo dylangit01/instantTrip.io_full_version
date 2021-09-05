@@ -46,6 +46,8 @@ const Form = () => {
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
+
+		// For form validation:
 		if (validateOnChange) {
 			validate({ [name]: value });
 		}
@@ -55,6 +57,7 @@ const Form = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
+		// Check from validation first:
 		if (validate()) {
 			if (postID) {
 
